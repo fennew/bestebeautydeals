@@ -2,11 +2,11 @@ import Link from "next/link";
 import { categories } from "@/data/categories";
 import { getFoundations } from "@/data/products";
 import { reviews } from "@/data/reviews";
-import { TrustBar } from "@/components/TrustBar";
 import { StarRating } from "@/components/StarRating";
 import { ProductCard } from "@/components/ProductCard";
 import { BekendVan } from "@/components/BekendVan";
 import { ReviewsCarousel } from "@/components/ReviewsCarousel";
+import { Starburst } from "@/components/Starburst";
 
 function CategoryCard({ c }: { c: (typeof categories)[number] }) {
   return (
@@ -89,9 +89,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Bekend van */}
-      <BekendVan />
-
       {/* Hero met categorieën */}
       <section className="border-b border-line bg-teal text-cream">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
@@ -145,8 +142,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <TrustBar />
-
       {/* Waarom bestebeautydeals */}
       <section className="border-b border-line bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
@@ -182,6 +177,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Bekend van (onder Waarom) */}
+      <BekendVan />
+
       {/* Reviews */}
       <section className="border-b border-line bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
@@ -193,32 +191,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Bespaar / herkenbare frustraties (onderaan) */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
-          <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-            Bespaar tot <span className="text-teal">€120 per jaar</span> op jouw
-            make-up
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-            Te veel keuze, onduidelijke prijzen en telkens de verkeerde tint
-            kopen — make-up uitkiezen is een gedoe en je betaalt al snel te
-            veel. Wij vergelijken het voor je, zodat je in één oogopslag ziet
-            welk product écht bij jou past en waar je het voordeligst uit bent.
-          </p>
-          <div className="mt-10 grid gap-8 sm:grid-cols-3">
-            {[
-              { stat: "Geen miskopen", sub: "altijd de juiste tint en finish" },
-              { stat: "Geen te hoge prijs", sub: "wij vinden de scherpste deal" },
-              { stat: "Geen eindeloos zoeken", sub: "in 1 minuut jouw match" },
-            ].map((b) => (
-              <div key={b.stat}>
-                <p className="font-display text-xl font-semibold text-teal">
-                  {b.stat}
-                </p>
-                <p className="mt-1 text-sm text-muted">{b.sub}</p>
-              </div>
-            ))}
+      {/* Bespaar / herkenbare frustraties (onderaan, links uitgelijnd, hoog contrast) */}
+      <section className="bg-teal text-cream">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1fr_auto] md:py-20 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+              Bespaar tot wel €120 per jaar op jouw make-up
+            </h2>
+            <p className="mt-5 max-w-2xl leading-relaxed text-cream/85">
+              Te veel keuze, onduidelijke prijzen en telkens de verkeerde tint
+              kopen — make-up uitkiezen is een gedoe en je betaalt al snel te
+              veel. In onze vergelijker zie je in één oogopslag welk product
+              écht bij jouw huid past en waar je het voordeligst uit bent. Zo
+              kies je met vertrouwen en houd je geld over.
+            </p>
+            <a
+              href="/foundation/zoeken"
+              className="mt-8 inline-block rounded-lg bg-coral px-6 py-3.5 font-semibold text-white transition-colors hover:bg-coral-dark"
+            >
+              Bekijk de deals
+            </a>
+          </div>
+          <div className="hidden justify-center md:flex">
+            <Starburst size={170} />
           </div>
         </div>
       </section>

@@ -12,31 +12,56 @@ export const metadata: Metadata = {
 
 const faqs = [
   {
-    q: "Welke foundation is het beste voor de rijpere huid (40+)?",
-    a: "Voor een huid vanaf 40 jaar kies je een hydraterende foundation met een natuurlijke tot dewy finish die fijne lijntjes niet benadrukt. De MAY Radiance Foundation is hier speciaal voor ontwikkeld en staat daarom bovenaan onze lijst.",
+    q: "Hoeveel dekking geeft een goede foundation?",
+    a: "Foundations zijn er in lichte, medium en hoge dekking. Een opbouwbare formule is het veelzijdigst: je begint met een dunne laag voor een natuurlijke look en bouwt op waar je meer dekking wilt. Voor de dagelijkse look kies je meestal licht tot medium; voor speciale gelegenheden of een egalere teint een hogere dekking.",
   },
   {
-    q: "Hoe weet ik welke kleur foundation bij mij past?",
-    a: "Bepaal eerst je ondertoon: koel (rozige adertjes), warm (goudgeel) of neutraal. Kies vervolgens een tint die op je kaaklijn verdwijnt. In onze zoekhulp houden we hier rekening mee.",
+    q: "Dekt foundation sproeten en pigmentvlekken?",
+    a: "Een medium tot hoge dekking camoufleert sproeten en lichte pigmentvlekken goed. Voor donkere plekjes of sterkere pigmentatie werk je de foundation bij met een concealer op die specifieke plekken — zo houd je de rest van je huid natuurlijk en voorkom je een maskerend effect.",
+  },
+  {
+    q: "Welke foundation is het beste voor een rijpere huid met fijne lijntjes?",
+    a: "Voor een huid met rimpels of fijne lijntjes kies je een lichte, hydraterende formule met een natuurlijke tot dewy finish. Die trekt niet in lijntjes en laat de huid stralen in plaats van dof. Vermijd zeer matte, droge poederformules; die kunnen lijntjes juist benadrukken.",
+  },
+  {
+    q: "Hoe kies ik de juiste foundationkleur en ondertoon?",
+    a: "Bepaal eerst je ondertoon: koel (rozige adertjes), warm (goudgeel) of neutraal. Test een tint op je kaaklijn bij daglicht — de juiste kleur verdwijnt vrijwel in je huid. Twijfel je tussen twee tinten, kies dan de iets warmere. In onze zoekhulp houden we rekening met je ondertoon.",
+  },
+  {
+    q: "Wat is de beste manier om foundation aan te brengen?",
+    a: "Voor een egaal en langhoudend resultaat breng je foundation het beste aan met een kwast: zo verdeel je het product gelijkmatig en dring je het lichtjes in de huid. Een vochtige make-upspons geeft een natuurlijkere, dunnere laag. Werk altijd van het midden van je gezicht naar buiten toe.",
   },
   {
     q: "Wat is het verschil tussen dekking en finish?",
-    a: "Dekking gaat over hoeveel je huid bedekt wordt (licht, medium of hoog). Finish gaat over de uitstraling: matte, natuurlijk of dewy (stralend).",
+    a: "Dekking gaat over hoeveel van je huid bedekt wordt (licht, medium of hoog). Finish gaat over de uitstraling: matte (geen glans), natuurlijk (huidachtig) of dewy (stralend). Beide kies je los van elkaar op basis van je huidtype en de look die je wilt.",
   },
 ];
 
 export default function FoundationPage() {
   const foundations = getFoundations();
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       {/* Hero met volledige foto */}
       <section
-        className="relative flex min-h-[460px] items-center bg-teal bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero-foundation.jpg')" }}
+        className="relative flex min-h-[460px] items-center bg-teal bg-cover bg-right"
+        style={{ backgroundImage: "url('/hero-foundation.png')" }}
       >
-        {/* leesbaarheids-scrim */}
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/55 to-charcoal/10" />
         <div className="relative mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-xl text-cream">
             <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
@@ -65,10 +90,8 @@ export default function FoundationPage() {
         </div>
       </section>
 
-      <TrustBar />
-
-      {/* Alle foundations */}
-      <section id="alle-foundations" className="border-t border-line">
+      {/* Alle foundations — direct onder de hero */}
+      <section id="alle-foundations" className="border-b border-line bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-2xl">
@@ -98,49 +121,11 @@ export default function FoundationPage() {
         </div>
       </section>
 
-      {/* Zo werkt het */}
-      <section className="bg-teal text-cream">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
-          <div className="max-w-2xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cream/70">
-              Zo werkt het
-            </span>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
-              In drie stappen naar jouw perfecte foundation
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-cream/15 bg-cream/15 md:grid-cols-3">
-            {[
-              {
-                step: "01",
-                title: "Vul je huidprofiel in",
-                text: "Vertel ons je huidtype, leeftijd en voorkeuren. Duurt minder dan een minuut.",
-              },
-              {
-                step: "02",
-                title: "Vergelijk de deals",
-                text: "Wij tonen de best passende foundations, gesorteerd op match en prijs.",
-              },
-              {
-                step: "03",
-                title: "Kies en bespaar",
-                text: "Ga direct naar de beste deal en bestel jouw perfecte foundation.",
-              },
-            ].map((s) => (
-              <div key={s.step} className="bg-teal p-8">
-                <span className="font-display text-2xl font-semibold text-cream/50">
-                  {s.step}
-                </span>
-                <h3 className="mt-3 font-display text-xl">{s.title}</h3>
-                <p className="mt-2 text-cream/80">{s.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Garanties / USP's */}
+      <TrustBar />
 
       {/* FAQ / koopgids */}
-      <section className="border-t border-line">
+      <section className="border-t border-line bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">
             Koopgids
