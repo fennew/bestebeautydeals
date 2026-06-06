@@ -33,36 +33,41 @@ export function DealRow({
   featured?: boolean;
 }) {
   const usps = product.pros.slice(0, 4);
+  const original = product.price + product.savings;
 
   return (
     <article
       className={`relative rounded-xl bg-white p-5 sm:p-6 ${
-        featured ? "border-2 border-teal" : "border border-line"
+        featured
+          ? "border-2 border-teal shadow-[0_10px_30px_-12px_rgba(14,92,91,0.45)]"
+          : "border border-line shadow-sm"
       }`}
     >
       {/* rang / badge */}
       <div className="absolute -top-3 left-5">
         {featured ? (
-          <span className="rounded-full bg-teal px-3 py-1 text-xs font-semibold text-cream">
+          <span className="rounded-full bg-teal px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
             Onze keuze
           </span>
         ) : (
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-charcoal text-sm font-semibold text-cream">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-charcoal text-sm font-semibold text-white">
             {rank}
           </span>
         )}
       </div>
 
+      {/* kortinglabel rechtsboven */}
+      <span className="absolute -top-3 right-5 rounded-md bg-gold px-2.5 py-1 text-xs font-bold text-charcoal">
+        gemiddeld € {product.savings} korting
+      </span>
+
       <div className="grid items-center gap-6 pt-2 md:grid-cols-[200px_1fr_220px]">
-        {/* merk + besparing */}
+        {/* merk */}
         <div>
-          <div className="flex h-16 items-center justify-center rounded-lg border border-line bg-cream px-4">
-            <span className="font-display text-lg font-semibold tracking-tight">
+          <div className="flex h-16 items-center justify-center rounded-lg border border-line bg-mist px-4">
+            <span className="font-display text-lg font-semibold tracking-tight text-charcoal">
               {product.brand}
             </span>
-          </div>
-          <div className="mt-2 inline-block rounded-md bg-gold px-2.5 py-1 text-xs font-bold text-charcoal">
-            € {product.savings} goedkoper
           </div>
         </div>
 
@@ -83,15 +88,24 @@ export function DealRow({
         <div className="flex flex-col items-stretch gap-2 md:items-end">
           <div className="md:text-right">
             <span className="text-xs text-muted">onze prijs</span>
-            <p className="font-display text-2xl font-semibold leading-tight">
-              {formatPrice(product.price)}
-            </p>
+            <div className="flex items-baseline gap-2 md:justify-end">
+              <span className="font-display text-2xl font-semibold leading-tight text-charcoal">
+                {formatPrice(product.price)}
+              </span>
+              <span className="text-sm text-muted line-through">
+                {formatPrice(original)}
+              </span>
+            </div>
           </div>
           <a
             href={product.dealUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg bg-coral px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-coral-dark"
+            className={`rounded-lg px-6 py-3 text-center font-semibold transition-colors ${
+              featured
+                ? "bg-coral text-white hover:bg-coral-dark"
+                : "border border-line text-charcoal hover:border-teal hover:text-teal"
+            }`}
           >
             Bekijk deal
           </a>

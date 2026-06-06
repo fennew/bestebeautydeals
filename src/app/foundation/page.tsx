@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { getFoundations } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { TrustBar } from "@/components/TrustBar";
+import heroImg from "../../../public/hero-foundation.png";
 
 export const metadata: Metadata = {
   title: "Beste foundations 2026 vergelijken",
@@ -56,18 +58,17 @@ export default function FoundationPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      {/* Hero met volledige foto */}
-      <section
-        className="relative flex min-h-[460px] items-center bg-teal bg-cover bg-right"
-        style={{ backgroundImage: "url('/hero-foundation.png')" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/55 to-charcoal/10" />
-        <div className="relative mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="max-w-xl text-cream">
-            <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+      {/* Hero — donkere teal-band, tekst links + vierkante foto rechts */}
+      <section className="border-b border-line bg-teal-deep text-cream">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-20 lg:px-8">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-blush">
+              Foundation-vergelijker
+            </span>
+            <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
               Vind de foundation die echt bij jouw huid past
             </h1>
-            <p className="mt-5 text-lg leading-relaxed text-cream/90">
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-cream/85">
               Wij vergelijken de beste foundations op dekking, finish en prijs —
               afgestemd op jouw huidtype. Zo kies je in een minuut met
               vertrouwen.
@@ -86,6 +87,16 @@ export default function FoundationPage() {
                 Bekijk alle foundations
               </a>
             </div>
+          </div>
+          <div className="flex justify-center md:justify-end">
+            <Image
+              src={heroImg}
+              alt="Foundation voor en na — egale, stralende huid"
+              width={420}
+              height={420}
+              priority
+              className="aspect-square w-full max-w-sm rounded-2xl object-cover shadow-lg"
+            />
           </div>
         </div>
       </section>

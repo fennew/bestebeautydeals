@@ -27,30 +27,34 @@ const fields = [
     ],
   },
   {
-    name: "coverage",
-    label: "Dekking",
+    // Merkenlijst — later beheerbaar via de CMS.
+    name: "currentBrand",
+    label: "Welke foundation gebruik je nu?",
     options: [
-      ["licht", "Licht"],
-      ["medium", "Medium"],
-      ["hoog", "Hoog"],
+      ["geen", "Ik gebruik geen foundation"],
+      ["may", "MAY Cosmetics"],
+      ["loreal", "L'Oréal"],
+      ["maybelline", "Maybelline"],
+      ["rimmel", "Rimmel"],
+      ["maxfactor", "Max Factor"],
+      ["esteelauder", "Estée Lauder"],
+      ["clinique", "Clinique"],
+      ["mac", "MAC"],
+      ["catrice", "Catrice"],
+      ["anders", "Een ander merk"],
     ],
   },
   {
-    name: "finish",
-    label: "Finish",
+    name: "concern",
+    label: "Wat moet je foundation dekken?",
     options: [
-      ["dewy", "Dewy / stralend"],
-      ["natuurlijk", "Natuurlijk"],
-      ["matte", "Matte"],
-    ],
-  },
-  {
-    name: "undertone",
-    label: "Ondertoon",
-    options: [
-      ["koel", "Koel (rozig)"],
-      ["neutraal", "Neutraal"],
-      ["warm", "Warm (goudgeel)"],
+      ["lijntjes", "Fijne lijntjes en rimpels"],
+      ["pigment", "Ouderdomsvlekken en ongelijkmatige toon"],
+      ["droogte", "Droogte en ruwe textuur"],
+      ["verslapping", "Verslapping van de huid"],
+      ["porien", "Grote poriën"],
+      ["acne", "Acne en puistjes"],
+      ["roodheid", "Roodheid en irritatie"],
     ],
   },
 ] as const;
@@ -82,18 +86,21 @@ export default function ZoekenPage() {
     }
 
     const params = new URLSearchParams();
-    for (const key of ["skin", "coverage", "finish", "undertone"]) {
+    for (const key of ["skin", "age", "currentBrand", "concern"]) {
       if (values[key]) params.set(key, values[key]);
     }
     router.push(`/foundation/resultaten?${params.toString()}`);
   }
 
   return (
-    <div className="bg-cream">
+    <div className="bg-white">
       {/* Hero met horizontale widget */}
-      <section className="bg-teal">
+      <section className="bg-teal-deep">
         <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8">
-          <h1 className="max-w-2xl font-display text-3xl font-semibold text-cream sm:text-4xl lg:text-5xl">
+          <span className="text-xs font-semibold uppercase tracking-[0.22em] text-blush">
+            Foundation-vergelijker
+          </span>
+          <h1 className="mt-4 max-w-2xl font-display text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
             Foundation vergelijken? Vind jouw perfecte match
           </h1>
           <p className="mt-3 max-w-xl text-cream/80">
@@ -108,7 +115,7 @@ export default function ZoekenPage() {
           onSubmit={handleSubmit}
           className="rounded-3xl bg-white p-5 shadow-lg ring-1 ring-line sm:p-6"
         >
-          <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-6">
+          <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {fields.map((f) => (
               <label key={f.name} className="block">
                 <span className="text-sm font-semibold text-charcoal">

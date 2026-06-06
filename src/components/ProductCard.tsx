@@ -13,26 +13,39 @@ export function ProductCard({
   product: Product;
   featured?: boolean;
 }) {
+  const original = product.price + product.savings;
+  const discountPct = Math.round((product.savings / original) * 100);
+
   return (
     <article
-      className={`group flex flex-col overflow-hidden rounded-xl bg-white transition-colors ${
-        featured ? "border-2 border-teal" : "border border-line"
+      className={`relative flex flex-col rounded-xl bg-white ${
+        featured
+          ? "border-2 border-teal shadow-[0_10px_30px_-12px_rgba(14,92,91,0.45)]"
+          : "border border-line shadow-sm"
       }`}
     >
-      <div className="relative">
-        <ProductImage product={product} className="py-6" />
-        {product.badge && (
-          <span className="absolute left-3 top-3 rounded-full bg-teal px-3 py-1 text-xs font-medium tracking-wide text-cream">
-            {product.badge}
+      {/* ONZE KEUZE badge — half over de bovenrand */}
+      {featured && (
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-teal px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+          Onze keuze
+        </span>
+      )}
+
+      <div className="relative px-5 pt-6">
+        {/* kortingsbadge op concurrent-kaarten */}
+        {!featured && discountPct > 0 && (
+          <span className="absolute right-4 top-4 z-10 rounded-md bg-coral-soft px-2 py-1 text-xs font-bold text-coral-deep">
+            -{discountPct}%
           </span>
         )}
+        <ProductImage product={product} className="rounded-lg py-4" />
       </div>
 
-      <div className="flex flex-1 flex-col border-t border-line p-5">
+      <div className="flex flex-1 flex-col p-5 pt-4">
         <span className="text-xs font-medium uppercase tracking-wider text-muted">
           {product.bestForLabel}
         </span>
-        <h3 className="mt-1.5 font-display text-xl leading-tight">
+        <h3 className="mt-1.5 font-display text-xl font-semibold leading-tight text-charcoal">
           {product.brand}
         </h3>
         <p className="mt-0.5 text-sm text-muted">{product.tagline}</p>
@@ -41,19 +54,34 @@ export function ProductCard({
           <StarRating rating={product.rating} reviewCount={product.reviewCount} />
         </div>
 
-        <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
-          <span className="font-display text-2xl font-semibold">
-            {formatPrice(product.price)}
-          </span>
-          <a
-            href={product.dealUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-lg bg-coral px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-dark"
-          >
-            Bekijk deal
-          </a>
+        <div className="mt-4 flex items-end justify-between border-t border-line pt-4">
+          <div>
+            <div className="flex items-baseline gap-2">
+              <span className="font-display text-2xl font-semibold text-charcoal">
+                {formatPrice(product.price)}
+              </span>
+              <span className="text-sm text-muted line-through">
+                {formatPrice(original)}
+              </span>
+            </div>
+            <span className="text-xs font-medium text-teal">
+              gem. €{product.savings} goedkoper
+            </span>
+          </div>
         </div>
+
+        <a
+          href={product.dealUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`mt-4 block rounded-lg px-4 py-3 text-center text-sm font-semibold transition-colors ${
+            featured
+              ? "bg-coral text-white hover:bg-coral-dark"
+              : "border border-line text-charcoal hover:border-teal hover:text-teal"
+          }`}
+        >
+          Bekijk deal
+        </a>
       </div>
     </article>
   );
