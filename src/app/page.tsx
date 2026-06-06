@@ -12,7 +12,7 @@ function formatPrice(price: number) {
 
 function CategoryCard({ c }: { c: (typeof categories)[number] }) {
   return (
-    <div className="flex flex-col justify-between rounded-xl border border-line bg-white p-6">
+    <div className="flex flex-col justify-between rounded-xl border border-line bg-white p-6 text-charcoal">
       <div>
         <div className="flex items-center justify-between">
           <h3 className="font-display text-xl font-semibold tracking-tight">
