@@ -62,7 +62,7 @@ export const reviews: Review[] = [
     id: "r6",
     name: "Ingrid M.",
     location: "Den Haag",
-    rating: 4,
+    rating: 5,
     title: "Fijne vergelijking",
     date: "3 weken geleden",
     verified: true,
