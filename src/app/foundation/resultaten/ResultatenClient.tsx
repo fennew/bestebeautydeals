@@ -132,7 +132,7 @@ export function ResultatenClient() {
         {filtered.length > 0 ? (
           <div className="flex flex-col gap-5">
             {filtered.map((p, i) => (
-              <DealRow key={p.id} product={p} rank={i} featured={i === 0} />
+              <DealRow key={p.id} product={p} rank={i + 1} featured={i === 0} />
             ))}
           </div>
         ) : (

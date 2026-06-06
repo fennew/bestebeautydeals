@@ -5,7 +5,7 @@ import type { Review } from "@/data/types";
 import { TrustpilotStars } from "./TrustpilotStars";
 
 function TrustStars({ rating }: { rating: number }) {
-  return <TrustpilotStars rating={rating} size={30} />;
+  return <TrustpilotStars rating={rating} size={34} />;
 }
 
 export function ReviewsCarousel({

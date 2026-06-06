@@ -1,21 +1,17 @@
-import Image from "next/image";
-import stars from "../../public/trustpilot-stars.avif";
+/* eslint-disable @next/next/no-img-element */
 
 /**
- * Trustpilot-sterren als afbeelding via next/image.
- * De statische import levert de echte pixel-afmetingen, zodat de ratio
- * exact klopt. `size` = hoogte in px; breedte wordt naar verhouding berekend.
+ * Trustpilot-sterren als afbeelding (aangeleverd bestand in /public).
+ * `size` = hoogte in px; breedte volgt de natuurlijke ratio van de afbeelding
+ * (browser leest de echte ratio uit de gedecodeerde afbeelding).
  */
-export function TrustpilotStars({ size = 24 }: { rating?: number; size?: number }) {
-  const width = Math.round((size * stars.width) / stars.height);
+export function TrustpilotStars({ size = 32 }: { rating?: number; size?: number }) {
   return (
-    <Image
-      src={stars}
+    <img
+      src="/trustpilot-stars.avif"
       alt="5 van 5 sterren"
-      width={width}
-      height={size}
-      priority
-      className="block"
+      style={{ height: size, width: "auto" }}
+      className="block max-w-none shrink-0"
     />
   );
 }

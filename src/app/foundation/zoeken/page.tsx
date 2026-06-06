@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { trustStats } from "@/data/reviews";
+import { MultiSelect } from "@/components/MultiSelect";
 
+// Native single-select velden.
 const fields = [
   {
     name: "skin",
@@ -27,68 +29,71 @@ const fields = [
     ],
   },
   {
-    // Merkenlijst — later beheerbaar via de CMS.
+    // Merkenlijst (door elkaar) — later beheerbaar via de CMS.
     name: "currentBrand",
     label: "Welke foundation gebruik je nu?",
     options: [
       ["geen", "Ik gebruik geen foundation"],
-      ["may", "MAY Cosmetics"],
-      ["loreal", "L'Oréal"],
       ["maybelline", "Maybelline"],
-      ["rimmel", "Rimmel"],
-      ["maxfactor", "Max Factor"],
       ["esteelauder", "Estée Lauder"],
-      ["clinique", "Clinique"],
+      ["loreal", "L'Oréal"],
       ["mac", "MAC"],
       ["catrice", "Catrice"],
+      ["may", "MAY Cosmetics"],
+      ["rimmel", "Rimmel"],
+      ["clinique", "Clinique"],
+      ["maxfactor", "Max Factor"],
       ["anders", "Een ander merk"],
-    ],
-  },
-  {
-    name: "concern",
-    label: "Wat moet je foundation dekken?",
-    options: [
-      ["lijntjes", "Fijne lijntjes en rimpels"],
-      ["pigment", "Ouderdomsvlekken en ongelijkmatige toon"],
-      ["droogte", "Droogte en ruwe textuur"],
-      ["verslapping", "Verslapping van de huid"],
-      ["porien", "Grote poriën"],
-      ["acne", "Acne en puistjes"],
-      ["roodheid", "Roodheid en irritatie"],
     ],
   },
 ] as const;
 
+const concernOptions = [
+  { value: "lijntjes", label: "Fijne lijntjes en rimpels" },
+  { value: "pigment", label: "Ouderdomsvlekken en ongelijkmatige toon" },
+  { value: "droogte", label: "Droogte en ruwe textuur" },
+  { value: "verslapping", label: "Verslapping van de huid" },
+  { value: "porien", label: "Grote poriën" },
+  { value: "acne", label: "Acne en puistjes" },
+  { value: "roodheid", label: "Roodheid en irritatie" },
+];
+
 export default function ZoekenPage() {
   const router = useRouter();
   const [values, setValues] = useState<Record<string, string>>({});
+  const [concerns, setConcerns] = useState<string[]>([]);
   const [email, setEmail] = useState("");
+  const [emailDone, setEmailDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   function set(name: string, value: string) {
     setValues((prev) => ({ ...prev, [name]: value }));
   }
 
+  async function sendLead() {
+    if (!email || !email.includes("@")) return;
+    try {
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, ...values, concerns }),
+      });
+    } catch {
+      /* stil falen */
+    }
+    setEmailDone(true);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
-
-    if (email) {
-      try {
-        await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, ...values }),
-        });
-      } catch {
-        /* stil falen — gebruiker mag altijd door */
-      }
-    }
+    if (email && !emailDone) await sendLead();
 
     const params = new URLSearchParams();
-    for (const key of ["skin", "age", "currentBrand", "concern"]) {
+    for (const key of ["skin", "age", "currentBrand"]) {
       if (values[key]) params.set(key, values[key]);
     }
+    if (concerns.length) params.set("concern", concerns.join(","));
     router.push(`/foundation/resultaten?${params.toString()}`);
   }
 
@@ -136,6 +141,19 @@ export default function ZoekenPage() {
               </label>
             ))}
 
+            <label className="block">
+              <span className="text-sm font-semibold text-charcoal">
+                Wat moet je foundation dekken?
+              </span>
+              <div className="mt-1.5">
+                <MultiSelect
+                  options={concernOptions}
+                  value={concerns}
+                  onChange={setConcerns}
+                />
+              </div>
+            </label>
+
             <button
               type="submit"
               disabled={submitting}
@@ -145,19 +163,37 @@ export default function ZoekenPage() {
             </button>
           </div>
 
-          {/* Optionele e-mail (Klaviyo lead) */}
-          <div className="mt-4 flex flex-col gap-2 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
+          {/* Optionele e-mail (Klaviyo lead) met aanmeldknop */}
+          <div className="mt-4 flex flex-col gap-3 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
             <label htmlFor="email" className="text-sm text-muted">
               Wil je jouw match én de beste deals ook per e-mail ontvangen?
             </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="jouwnaam@email.nl (optioneel)"
-              className="w-full rounded-xl border border-line bg-white px-4 py-2.5 outline-none focus:border-teal sm:max-w-xs"
-            />
+            {emailDone ? (
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-teal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                Aangemeld — je hoort van ons!
+              </span>
+            ) : (
+              <div className="flex w-full gap-2 sm:max-w-md">
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="jouwnaam@email.nl"
+                  className="w-full rounded-xl border border-line bg-white px-4 py-2.5 outline-none focus:border-teal"
+                />
+                <button
+                  type="button"
+                  onClick={sendLead}
+                  className="shrink-0 rounded-xl border border-teal px-4 py-2.5 text-sm font-semibold text-teal transition-colors hover:bg-teal hover:text-white"
+                >
+                  Aanmelden
+                </button>
+              </div>
+            )}
           </div>
         </form>
 

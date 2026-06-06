@@ -43,15 +43,18 @@ export function DealRow({
           : "border border-line shadow-sm"
       }`}
     >
-      {/* rang / badge */}
-      <div className="absolute -top-3 left-5">
-        {featured ? (
+      {/* rang + (optioneel) onze keuze */}
+      <div className="absolute -top-3 left-5 flex items-center gap-2">
+        <span
+          className={`flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold text-white ${
+            featured ? "bg-teal" : "bg-charcoal"
+          }`}
+        >
+          {rank}
+        </span>
+        {featured && (
           <span className="rounded-full bg-teal px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
             Onze keuze
-          </span>
-        ) : (
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-charcoal text-sm font-semibold text-white">
-            {rank}
           </span>
         )}
       </div>
