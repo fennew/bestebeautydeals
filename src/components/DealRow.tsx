@@ -1,5 +1,6 @@
 import type { Product } from "@/data/types";
 import { StarRating } from "./StarRating";
+import { ProductImage } from "./ProductImage";
 
 function formatPrice(price: number) {
   return `€${price.toFixed(2).replace(".", ",")}`;
@@ -64,28 +65,29 @@ export function DealRow({
         gemiddeld € {product.savings} korting
       </span>
 
-      <div className="grid items-center gap-6 pt-2 md:grid-cols-[200px_1fr_220px]">
-        {/* merk */}
-        <div>
-          <div className="flex h-16 items-center justify-center rounded-lg border border-line bg-mist px-4">
-            <span className="font-display text-lg font-semibold tracking-tight text-charcoal">
-              {product.brand}
-            </span>
-          </div>
+      <div className="grid items-center gap-6 pt-2 md:grid-cols-[160px_1fr_220px]">
+        {/* vierkante productfoto */}
+        <div className="aspect-square w-full overflow-hidden rounded-lg border border-line">
+          <ProductImage product={product} className="h-full w-full" />
         </div>
 
-        {/* USP's */}
-        <ul className="space-y-1.5">
-          {usps.map((u) => (
+        {/* titel + USP's */}
+        <div>
+          <h3 className="mb-2 font-display text-lg font-semibold tracking-tight text-charcoal">
+            {product.name}
+          </h3>
+          <ul className="space-y-1.5">
+            {usps.map((u) => (
             <li key={u} className="flex gap-2 text-sm text-charcoal">
               <Check />
               <span>{u}</span>
             </li>
           ))}
-          <li className="pt-1">
-            <StarRating rating={product.rating} reviewCount={product.reviewCount} />
-          </li>
-        </ul>
+            <li className="pt-1">
+              <StarRating rating={product.rating} reviewCount={product.reviewCount} />
+            </li>
+          </ul>
+        </div>
 
         {/* prijs + cta */}
         <div className="flex flex-col items-stretch gap-2 md:items-end">
