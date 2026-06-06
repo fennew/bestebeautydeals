@@ -44,6 +44,8 @@ export interface Product {
   cons: string[];
   /** Externe koop-/affiliate-link. */
   dealUrl: string;
+  /** Gemiddelde besparing in euro's via onze vergelijking. */
+  savings: number;
   /** Hex-kleur voor de placeholder-fles tot er echte foto's via CMS komen. */
   shadeColor: string;
   /** Forceert volgorde: lager = hoger in de lijst. MAY krijgt 0. */

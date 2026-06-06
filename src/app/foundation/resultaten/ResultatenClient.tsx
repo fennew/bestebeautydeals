@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getFoundations, brands } from "@/data/products";
-import { ProductCard } from "@/components/ProductCard";
+import { DealRow } from "@/components/DealRow";
 import type { SkinType } from "@/data/types";
 
 const skinOptions: { value: SkinType | "alle"; label: string }[] = [
@@ -130,9 +130,9 @@ export function ResultatenClient() {
 
         {/* Resultaten */}
         {filtered.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="flex flex-col gap-5">
             {filtered.map((p, i) => (
-              <ProductCard key={p.id} product={p} featured={i === 0} />
+              <DealRow key={p.id} product={p} rank={i} featured={i === 0} />
             ))}
           </div>
         ) : (

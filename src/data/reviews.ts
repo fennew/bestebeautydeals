@@ -31,6 +31,6 @@ export const reviews: Review[] = [
 
 export const trustStats = [
   { value: "200.000+", label: "vrouwen vergeleken hun foundation" },
-  { value: "9,2", label: "gemiddelde klantwaardering" },
-  { value: "30 dagen", label: "niet goed, geld terug" },
+  { value: "9,3", label: "gemiddelde beoordeling van onze bezoekers" },
+  { value: "€10", label: "gemiddeld goedkoper via onze vergelijking" },
 ];

@@ -1,84 +1,121 @@
 import Link from "next/link";
+import { categories } from "@/data/categories";
+import { getFoundations } from "@/data/products";
 import { reviews } from "@/data/reviews";
 import { TrustBar } from "@/components/TrustBar";
 import { StarRating } from "@/components/StarRating";
+import { ProductImage } from "@/components/ProductImage";
 
-const categories = [
-  { name: "Foundation", href: "/foundation", status: "Vergelijk nu", active: true },
-  { name: "Mascara", href: "/mascara", status: "Binnenkort", active: false },
-  { name: "Blush", href: "/blush", status: "Binnenkort", active: false },
-  { name: "Concealer", href: "/concealer", status: "Binnenkort", active: false },
-  { name: "Lippen", href: "/lippen", status: "Binnenkort", active: false },
-  { name: "Huidverzorging", href: "/huidverzorging", status: "Binnenkort", active: false },
-];
+function formatPrice(price: number) {
+  return `€${price.toFixed(2).replace(".", ",")}`;
+}
 
-function CategoryTile({
-  name,
-  href,
-  status,
-  active,
-}: {
-  name: string;
-  href: string;
-  status: string;
-  active: boolean;
-}) {
-  const content = (
-    <div
-      className={`flex h-full flex-col justify-between rounded-xl border p-6 transition-colors ${
-        active
-          ? "border-line bg-white hover:border-teal"
-          : "border-line bg-white/60"
-      }`}
-    >
-      <span className="font-display text-xl font-semibold tracking-tight">
-        {name}
-      </span>
-      <span
-        className={`mt-8 text-sm font-medium ${
-          active ? "text-teal" : "text-muted"
-        }`}
-      >
-        {status} {active && "→"}
-      </span>
+function CategoryCard({ c }: { c: (typeof categories)[number] }) {
+  return (
+    <div className="flex flex-col justify-between rounded-xl border border-line bg-white p-6">
+      <div>
+        <div className="flex items-center justify-between">
+          <h3 className="font-display text-xl font-semibold tracking-tight">
+            {c.name}
+          </h3>
+          {!c.available && (
+            <span className="rounded-full bg-cream px-2.5 py-1 text-xs font-medium text-muted">
+              Binnenkort
+            </span>
+          )}
+        </div>
+        <p className="mt-1 text-sm text-muted">{c.tagline}</p>
+      </div>
+      <div className="mt-6 flex items-center gap-4">
+        <Link
+          href={c.compareHref}
+          className="rounded-lg bg-coral px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-dark"
+        >
+          Vergelijk
+        </Link>
+        <Link
+          href={c.dealsHref}
+          className="text-sm font-medium text-teal underline-offset-4 hover:underline"
+        >
+          Beste deals →
+        </Link>
+      </div>
     </div>
-  );
-  return active ? (
-    <Link href={href} className="block">
-      {content}
-    </Link>
-  ) : (
-    <div className="cursor-default">{content}</div>
   );
 }
 
 export default function HomePage() {
+  const deal = getFoundations()[0]; // MAY = deal van de maand
+
   return (
     <>
       {/* Hero */}
-      <section className="border-b border-line bg-cream">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-              Vergelijk de beste beautyproducten en bespaar
-            </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-              Onafhankelijk de beste deals vinden op make-up en
-              huidverzorging — afgestemd op jouw huid en wensen. Kies een
-              categorie en start de vergelijking.
-            </p>
+      <section className="bg-teal text-cream">
+        <div className="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 md:pt-20 lg:px-8">
+          <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+            Vergelijk en vind de beste beautydeals
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/85">
+            Bespaar op je favoriete make-up en huidverzorging. Wij vergelijken
+            de beste producten op prijs, kwaliteit en reviews — afgestemd op
+            jouw huid.
+          </p>
+          <div className="mt-7 flex items-center gap-3 text-sm text-cream/85">
+            <StarRating rating={4.7} />
+            <span className="font-semibold">9,3</span>
+            <span className="h-4 w-px bg-cream/30" />
+            <span>200.000+ vrouwen vergeleken hun beautyproducten</span>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Categorietegels (overlappend) */}
+      <section className="bg-cream">
+        <div className="mx-auto -mt-16 max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((c) => (
-              <CategoryTile key={c.name} {...c} />
+              <CategoryCard key={c.slug} c={c} />
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-8 flex items-center gap-3 text-sm text-muted">
-            <StarRating rating={4.6} />
-            <span className="h-4 w-px bg-line" />
-            <span>200.000+ vrouwen vergeleken hun beautyproducten</span>
+      {/* Deal van de maand */}
+      <section className="bg-cream">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
+          <div className="overflow-hidden rounded-2xl border border-line bg-white md:grid md:grid-cols-[300px_1fr]">
+            <div className="border-b border-line md:border-b-0 md:border-r">
+              <ProductImage product={deal} className="h-full py-10" />
+            </div>
+            <div className="flex flex-col justify-center p-8">
+              <div className="flex items-center gap-3">
+                <span className="rounded-full bg-teal px-3 py-1 text-xs font-medium text-cream">
+                  Deal van de maand
+                </span>
+                <StarRating rating={deal.rating} reviewCount={deal.reviewCount} />
+              </div>
+              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight">
+                {deal.brand} — {deal.tagline}
+              </h2>
+              <p className="mt-2 text-muted">
+                Onze best beoordeelde foundation. Gemiddeld{" "}
+                <span className="font-semibold text-teal">
+                  €{deal.savings} goedkoper
+                </span>{" "}
+                via onze vergelijking.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-5">
+                <span className="font-display text-3xl font-semibold">
+                  {formatPrice(deal.price)}
+                </span>
+                <Link
+                  href="/foundation/zoeken"
+                  className="rounded-lg bg-coral px-6 py-3.5 font-semibold text-white transition-colors hover:bg-coral-dark"
+                >
+                  Vergelijk foundations
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -93,7 +130,7 @@ export default function HomePage() {
               Zo werkt het
             </span>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
-              In drie stappen naar jouw perfecte match
+              In drie stappen naar de beste deal
             </h2>
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-cream/15 bg-cream/15 md:grid-cols-3">
