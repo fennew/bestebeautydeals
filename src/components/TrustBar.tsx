@@ -52,7 +52,7 @@ const defaultItems: Item[] = [
 const vergelijkerItems: Item[] = [
   { title: "Altijd de scherpste deals", sub: "voor jouw beauty", icon: icons.tag },
   { title: "123.000+", sub: "vrouwen gingen je voor", icon: icons.users },
-  { title: "Bespaar gemiddeld €120", sub: "per jaar via onze vergelijker", icon: icons.coins },
+  { title: "Bespaar gemiddeld €120", sub: "per jaar op je make-up", icon: icons.coins },
   { title: "9,3", sub: "gemiddelde klantwaardering", icon: icons.thumbs },
 ];
 

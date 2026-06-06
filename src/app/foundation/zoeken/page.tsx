@@ -165,7 +165,7 @@ export default function ZoekenPage() {
 
           {/* Optionele e-mail (Klaviyo lead) met aanmeldknop */}
           <div className="mt-4 flex flex-col gap-3 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
-            <label htmlFor="email" className="text-sm text-muted">
+            <label htmlFor="email" className="text-base text-muted">
               Wil je jouw match én de beste deals ook per e-mail ontvangen?
             </label>
             {emailDone ? (
@@ -195,7 +195,7 @@ export default function ZoekenPage() {
               </div>
             )}
           </div>
-          <p className="mt-3 text-xs leading-relaxed text-muted">
+          <p className="mt-3 max-w-xl text-[10px] leading-relaxed text-muted">
             Door je e-mailadres achter te laten ga je akkoord dat we je
             persoonlijke foundation-advies en relevante aanbiedingen mogen
             sturen. We delen je gegevens nooit met derden en je kunt je op elk
