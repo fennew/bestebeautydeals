@@ -2,168 +2,169 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { trustStats } from "@/data/reviews";
 
-const skinTypes = [
-  { value: "droog", label: "Droog" },
-  { value: "vet", label: "Vet" },
-  { value: "normaal", label: "Normaal" },
-  { value: "gevoelig", label: "Gevoelig" },
-  { value: "gemengd", label: "Gemengd" },
-];
-
-const ageGroups = [
-  { value: "40-49", label: "40 – 49 jaar" },
-  { value: "50-59", label: "50 – 59 jaar" },
-  { value: "60+", label: "60 jaar en ouder" },
-  { value: "<40", label: "Jonger dan 40" },
-];
-
-const coverages = [
-  { value: "licht", label: "Licht — natuurlijk" },
-  { value: "medium", label: "Medium — egaal" },
-  { value: "hoog", label: "Hoog — volledig dekkend" },
-];
-
-const finishes = [
-  { value: "dewy", label: "Dewy / stralend" },
-  { value: "natuurlijk", label: "Natuurlijk" },
-  { value: "matte", label: "Matte" },
-];
-
-const undertones = [
-  { value: "koel", label: "Koel (rozig)" },
-  { value: "neutraal", label: "Neutraal" },
-  { value: "warm", label: "Warm (goudgeel)" },
-];
-
-function Field({
-  label,
-  options,
-  value,
-  onChange,
-  name,
-}: {
-  label: string;
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (v: string) => void;
-  name: string;
-}) {
-  return (
-    <fieldset>
-      <legend className="font-display text-lg">{label}</legend>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {options.map((o) => {
-          const active = value === o.value;
-          return (
-            <button
-              key={o.value}
-              type="button"
-              aria-pressed={active}
-              onClick={() => onChange(active ? "" : o.value)}
-              className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                active
-                  ? "border-teal bg-teal text-cream"
-                  : "border-line bg-white text-charcoal hover:border-teal"
-              }`}
-            >
-              {o.label}
-            </button>
-          );
-        })}
-      </div>
-      <input type="hidden" name={name} value={value} />
-    </fieldset>
-  );
-}
+const fields = [
+  {
+    name: "skin",
+    label: "Huidtype",
+    options: [
+      ["droog", "Droog"],
+      ["vet", "Vet"],
+      ["normaal", "Normaal"],
+      ["gevoelig", "Gevoelig"],
+      ["gemengd", "Gemengd"],
+    ],
+  },
+  {
+    name: "age",
+    label: "Leeftijd",
+    options: [
+      ["<40", "Jonger dan 40"],
+      ["40-49", "40 – 49 jaar"],
+      ["50-59", "50 – 59 jaar"],
+      ["60+", "60 jaar en ouder"],
+    ],
+  },
+  {
+    name: "coverage",
+    label: "Dekking",
+    options: [
+      ["licht", "Licht"],
+      ["medium", "Medium"],
+      ["hoog", "Hoog"],
+    ],
+  },
+  {
+    name: "finish",
+    label: "Finish",
+    options: [
+      ["dewy", "Dewy / stralend"],
+      ["natuurlijk", "Natuurlijk"],
+      ["matte", "Matte"],
+    ],
+  },
+  {
+    name: "undertone",
+    label: "Ondertoon",
+    options: [
+      ["koel", "Koel (rozig)"],
+      ["neutraal", "Neutraal"],
+      ["warm", "Warm (goudgeel)"],
+    ],
+  },
+] as const;
 
 export default function ZoekenPage() {
   const router = useRouter();
-  const [skin, setSkin] = useState("");
-  const [age, setAge] = useState("");
-  const [coverage, setCoverage] = useState("");
-  const [finish, setFinish] = useState("");
-  const [undertone, setUndertone] = useState("");
+  const [values, setValues] = useState<Record<string, string>>({});
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  function set(name: string, value: string) {
+    setValues((prev) => ({ ...prev, [name]: value }));
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
 
-    // E-mail vastleggen voor latere Klaviyo-koppeling (lead capture).
     if (email) {
       try {
         await fetch("/api/lead", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, skin, age, coverage, finish, undertone }),
+          body: JSON.stringify({ email, ...values }),
         });
       } catch {
-        // stil falen — de gebruiker mag altijd door naar de resultaten
+        /* stil falen — gebruiker mag altijd door */
       }
     }
 
     const params = new URLSearchParams();
-    if (skin) params.set("skin", skin);
-    if (coverage) params.set("coverage", coverage);
-    if (finish) params.set("finish", finish);
-    if (undertone) params.set("undertone", undertone);
+    for (const key of ["skin", "coverage", "finish", "undertone"]) {
+      if (values[key]) params.set(key, values[key]);
+    }
     router.push(`/foundation/resultaten?${params.toString()}`);
   }
 
   return (
-    <div className="bg-gradient-to-b from-blush-light to-cream">
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-        <header className="text-center">
-          <h1 className="font-display text-4xl font-semibold">
-            Vind jouw perfecte foundation
+    <div className="bg-cream">
+      {/* Hero met horizontale widget */}
+      <section className="bg-teal">
+        <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8">
+          <h1 className="max-w-2xl font-display text-3xl font-semibold text-cream sm:text-4xl lg:text-5xl">
+            Foundation vergelijken? Vind jouw perfecte match
           </h1>
-          <p className="mt-3 text-muted">
-            Beantwoord een paar korte vragen over je huid. Wij vergelijken
-            direct de best passende deals voor jou.
+          <p className="mt-3 max-w-xl text-cream/80">
+            Vul je huidprofiel in en wij tonen direct de best passende
+            foundation-deals — afgestemd op jouw huid.
           </p>
-        </header>
+        </div>
+      </section>
 
+      <div className="mx-auto -mt-16 max-w-7xl px-4 sm:px-6 lg:px-8">
         <form
           onSubmit={handleSubmit}
-          className="mt-8 space-y-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-line sm:p-8"
+          className="rounded-3xl bg-white p-5 shadow-lg ring-1 ring-line sm:p-6"
         >
-          <Field label="Wat is jouw huidtype?" name="skin" options={skinTypes} value={skin} onChange={setSkin} />
-          <Field label="In welke leeftijdsgroep val je?" name="age" options={ageGroups} value={age} onChange={setAge} />
-          <Field label="Welke dekking zoek je?" name="coverage" options={coverages} value={coverage} onChange={setCoverage} />
-          <Field label="Welke finish heeft je voorkeur?" name="finish" options={finishes} value={finish} onChange={setFinish} />
-          <Field label="Wat is jouw ondertoon?" name="undertone" options={undertones} value={undertone} onChange={setUndertone} />
+          <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-6">
+            {fields.map((f) => (
+              <label key={f.name} className="block">
+                <span className="text-sm font-semibold text-charcoal">
+                  {f.label}
+                </span>
+                <select
+                  value={values[f.name] ?? ""}
+                  onChange={(e) => set(f.name, e.target.value)}
+                  className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-3 text-charcoal outline-none focus:border-teal"
+                >
+                  <option value="">Selecteer</option>
+                  {f.options.map(([val, lbl]) => (
+                    <option key={val} value={val}>
+                      {lbl}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ))}
 
-          <div>
-            <label htmlFor="email" className="font-display text-lg">
-              Ontvang jouw match ook per e-mail (optioneel)
+            <button
+              type="submit"
+              disabled={submitting}
+              className="h-[50px] rounded-xl bg-coral px-5 font-semibold text-white transition-colors hover:bg-coral-dark disabled:opacity-60"
+            >
+              {submitting ? "Zoeken…" : "Vergelijk"}
+            </button>
+          </div>
+
+          {/* Optionele e-mail (Klaviyo lead) */}
+          <div className="mt-4 flex flex-col gap-2 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
+            <label htmlFor="email" className="text-sm text-muted">
+              Wil je jouw match én de beste deals ook per e-mail ontvangen?
             </label>
-            <p className="mt-1 text-sm text-muted">
-              We sturen je jouw persoonlijke foundation-advies en de beste deals.
-            </p>
             <input
               id="email"
               type="email"
-              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="jouwnaam@email.nl"
-              className="mt-3 w-full rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-teal"
+              placeholder="jouwnaam@email.nl (optioneel)"
+              className="w-full rounded-xl border border-line bg-white px-4 py-2.5 outline-none focus:border-teal sm:max-w-xs"
             />
           </div>
-
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full rounded-xl bg-coral px-6 py-4 text-lg font-semibold text-white transition-colors hover:bg-coral-dark disabled:opacity-60"
-          >
-            {submitting ? "Even zoeken…" : "Toon mijn beste deals"}
-          </button>
-          <p className="text-center text-xs text-muted">
-            Gratis en vrijblijvend. Je gegevens worden vertrouwelijk behandeld.
-          </p>
         </form>
+
+        {/* Vertrouwenscijfers */}
+        <div className="mt-10 grid gap-6 border-b border-line pb-10 sm:grid-cols-3">
+          {trustStats.map((s) => (
+            <div key={s.label} className="text-center">
+              <p className="font-display text-3xl font-semibold text-teal">
+                {s.value}
+              </p>
+              <p className="mt-1 text-sm text-muted">{s.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export function Footer() {
     <footer className="mt-20 bg-teal-dark text-cream/90">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="space-y-3">
-          <Logo className="text-cream" />
+          <Logo variant="light" />
           <p className="max-w-xs text-sm text-cream/70">
             Onafhankelijk de beste beautydeals vergelijken op prijs, kwaliteit
             en reviews — afgestemd op jouw huid.

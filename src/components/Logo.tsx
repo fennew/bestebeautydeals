@@ -1,35 +1,57 @@
 import Link from "next/link";
 
 /**
- * Tijdelijk wordmark-logo (sparkle + "bestebeautydeals").
- * Vervang later door het aangeleverde logo-bestand in /public.
+ * Logo: coral prijskaart-icoon met %, wordmark in Poppins.
+ * `variant` bepaalt de tekstkleur (teal op licht, cream op de teal header).
+ * Vervang het icoon later door het definitieve logo-bestand in /public.
  */
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({
+  className = "",
+  variant = "dark",
+}: {
+  className?: string;
+  variant?: "dark" | "light";
+}) {
+  const textColor = variant === "light" ? "text-cream" : "text-teal";
   return (
     <Link
       href="/"
-      className={`flex items-center gap-2 font-display text-2xl font-semibold tracking-tight ${className}`}
+      className={`flex items-center gap-2.5 ${className}`}
       aria-label="Beste Beauty Deals — naar de homepage"
     >
       <svg
-        width="26"
-        height="26"
-        viewBox="0 0 24 24"
+        width="30"
+        height="30"
+        viewBox="0 0 40 40"
         fill="none"
         aria-hidden="true"
-        className="text-blush"
       >
+        {/* prijskaart */}
         <path
-          d="M12 1.5l2.2 6.3 6.3 2.2-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-2.2L12 1.5z"
-          fill="currentColor"
+          d="M19.5 3.2 36 19.7a3.2 3.2 0 0 1 0 4.5L24.2 36a3.2 3.2 0 0 1-4.5 0L3.2 19.5a3 3 0 0 1-.9-2.3L3 6.1A3 3 0 0 1 6.1 3l11.1-.3a3 3 0 0 1 2.3.5Z"
+          fill="#ff6b5c"
         />
-        <path
-          d="M19 14l1 2.8L23 18l-3 1.2L19 22l-1-2.8L15 18l3-1.2L19 14z"
-          fill="currentColor"
-          opacity="0.7"
+        {/* gaatje */}
+        <circle cx="10.5" cy="10.5" r="2.2" fill="#fff" />
+        {/* procent */}
+        <circle cx="17" cy="20" r="2.1" fill="#fff" />
+        <circle cx="25" cy="28" r="2.1" fill="#fff" />
+        <rect
+          x="13"
+          y="22.5"
+          width="16"
+          height="2.6"
+          rx="1.3"
+          transform="rotate(-45 13 22.5)"
+          fill="#fff"
         />
       </svg>
-      <span>bestebeautydeals</span>
+      <span
+        className={`text-2xl font-bold lowercase tracking-tight ${textColor}`}
+        style={{ fontFamily: "var(--font-poppins)" }}
+      >
+        bestebeautydeals
+      </span>
     </Link>
   );
 }
