@@ -1,111 +1,92 @@
 import Link from "next/link";
-import { getFoundations } from "@/data/products";
 import { reviews } from "@/data/reviews";
-import { ProductCard } from "@/components/ProductCard";
 import { TrustBar } from "@/components/TrustBar";
 import { StarRating } from "@/components/StarRating";
-import { ProductImage } from "@/components/ProductImage";
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">
-      {children}
-    </span>
+const categories = [
+  { name: "Foundation", href: "/foundation", status: "Vergelijk nu", active: true },
+  { name: "Mascara", href: "/mascara", status: "Binnenkort", active: false },
+  { name: "Blush", href: "/blush", status: "Binnenkort", active: false },
+  { name: "Concealer", href: "/concealer", status: "Binnenkort", active: false },
+  { name: "Lippen", href: "/lippen", status: "Binnenkort", active: false },
+  { name: "Huidverzorging", href: "/huidverzorging", status: "Binnenkort", active: false },
+];
+
+function CategoryTile({
+  name,
+  href,
+  status,
+  active,
+}: {
+  name: string;
+  href: string;
+  status: string;
+  active: boolean;
+}) {
+  const content = (
+    <div
+      className={`flex h-full flex-col justify-between rounded-xl border p-6 transition-colors ${
+        active
+          ? "border-line bg-white hover:border-teal"
+          : "border-line bg-white/60"
+      }`}
+    >
+      <span className="font-display text-xl font-semibold tracking-tight">
+        {name}
+      </span>
+      <span
+        className={`mt-8 text-sm font-medium ${
+          active ? "text-teal" : "text-muted"
+        }`}
+      >
+        {status} {active && "→"}
+      </span>
+    </div>
+  );
+  return active ? (
+    <Link href={href} className="block">
+      {content}
+    </Link>
+  ) : (
+    <div className="cursor-default">{content}</div>
   );
 }
 
 export default function HomePage() {
-  const foundations = getFoundations();
-  const top3 = foundations.slice(0, 3);
-  const hero = foundations[0];
-
   return (
     <>
       {/* Hero */}
       <section className="border-b border-line bg-cream">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-20 lg:px-8">
-          <div>
-            <Eyebrow>Onafhankelijke foundation-vergelijker</Eyebrow>
-            <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-              Vind de foundation die echt bij jouw huid past
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
+          <div className="max-w-3xl">
+            <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+              Vergelijk de beste beautyproducten en bespaar
             </h1>
-            <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
-              Wij vergelijken de beste foundations op dekking, finish en prijs —
-              afgestemd op jouw huidtype. Zo kies je in een minuut met
-              vertrouwen.
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+              Onafhankelijk de beste deals vinden op make-up en
+              huidverzorging — afgestemd op jouw huid en wensen. Kies een
+              categorie en start de vergelijking.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href="/foundation/zoeken"
-                className="rounded-lg bg-coral px-6 py-3.5 font-semibold text-white transition-colors hover:bg-coral-dark"
-              >
-                Vind jouw foundation
-              </Link>
-              <Link
-                href="/foundation"
-                className="font-medium text-teal underline-offset-4 hover:underline"
-              >
-                Bekijk alle foundations
-              </Link>
-            </div>
-            <div className="mt-8 flex items-center gap-3 text-sm text-muted">
-              <StarRating rating={4.6} />
-              <span className="h-4 w-px bg-line" />
-              <span>200.000+ vrouwen vergeleken hun foundation</span>
-            </div>
           </div>
 
-          <div className="flex justify-center md:justify-end">
-            <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-white">
-              <ProductImage product={hero} className="py-10" />
-              <div className="flex items-center justify-between border-t border-line px-5 py-4">
-                <div>
-                  <p className="text-xs uppercase tracking-wider text-teal">
-                    {hero.badge}
-                  </p>
-                  <p className="font-display text-lg leading-tight">
-                    {hero.brand}
-                  </p>
-                </div>
-                <StarRating rating={hero.rating} />
-              </div>
-            </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map((c) => (
+              <CategoryTile key={c.name} {...c} />
+            ))}
+          </div>
+
+          <div className="mt-8 flex items-center gap-3 text-sm text-muted">
+            <StarRating rating={4.6} />
+            <span className="h-4 w-px bg-line" />
+            <span>200.000+ vrouwen vergeleken hun beautyproducten</span>
           </div>
         </div>
       </section>
 
       <TrustBar />
 
-      {/* Top 3 */}
-      <section className="border-t border-line">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
-          <div className="mb-10 max-w-2xl">
-            <Eyebrow>Onze selectie</Eyebrow>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
-              De best beoordeelde foundations van 2026
-            </h2>
-            <p className="mt-3 text-muted">
-              Onafhankelijk beoordeeld op dekking, huidvriendelijkheid en prijs.
-            </p>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {top3.map((p, i) => (
-              <ProductCard key={p.id} product={p} featured={i === 0} />
-            ))}
-          </div>
-          <div className="mt-10">
-            <Link
-              href="/foundation"
-              className="font-medium text-teal underline-offset-4 hover:underline"
-            >
-              Bekijk alle foundations →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Hoe het werkt */}
-      <section className="bg-teal text-cream">
+      {/* Zo werkt het */}
+      <section className="border-t border-line bg-teal text-cream">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <div className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.18em] text-cream/70">
@@ -119,18 +100,18 @@ export default function HomePage() {
             {[
               {
                 step: "01",
-                title: "Vul je huidprofiel in",
-                text: "Vertel ons je huidtype, leeftijd en voorkeuren. Duurt minder dan een minuut.",
+                title: "Kies een categorie",
+                text: "Selecteer waar je naar op zoek bent, van foundation tot huidverzorging.",
               },
               {
                 step: "02",
-                title: "Vergelijk de deals",
-                text: "Wij tonen de best passende foundations, gesorteerd op match en prijs.",
+                title: "Vul je profiel in",
+                text: "Vertel ons je huidtype en voorkeuren, zodat we de juiste match tonen.",
               },
               {
                 step: "03",
-                title: "Kies en bespaar",
-                text: "Ga direct naar de beste deal en bestel jouw perfecte foundation.",
+                title: "Vergelijk en bespaar",
+                text: "Bekijk de best passende producten en ga direct naar de beste deal.",
               },
             ].map((s) => (
               <div key={s.step} className="bg-teal p-8">
@@ -142,14 +123,6 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <div className="mt-10">
-            <Link
-              href="/foundation/zoeken"
-              className="inline-block rounded-lg bg-coral px-6 py-3.5 font-semibold text-white transition-colors hover:bg-coral-dark"
-            >
-              Start de vergelijking
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -157,7 +130,9 @@ export default function HomePage() {
       <section className="border-t border-line">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <div className="mb-10 max-w-2xl">
-            <Eyebrow>Ervaringen</Eyebrow>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">
+              Ervaringen
+            </span>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
               Wat onze bezoekers zeggen
             </h2>

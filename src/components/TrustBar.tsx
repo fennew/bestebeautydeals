@@ -4,7 +4,8 @@ const items = [
     sub: "voor jouw beauty",
     icon: (
       <>
-        <path d="M12 2v20M7 5h8a3 3 0 010 6H8a3 3 0 000 6h9" />
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r="1.5" />
       </>
     ),
   },
@@ -12,26 +13,39 @@ const items = [
     title: "Altijd de beste producten",
     sub: "zorgvuldig geselecteerd",
     icon: (
-      <path d="M12 2l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17.8 6.8 18.1l1-5.8L3.5 8.2l5.9-.9L12 2z" />
+      <>
+        <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+        <circle cx="12" cy="8" r="6" />
+      </>
     ),
   },
   {
     title: "Vertrouwd door 200.000+",
     sub: "vrouwen gingen je voor",
     icon: (
-      <path d="M9 11a3 3 0 100-6 3 3 0 000 6zM2 20a7 7 0 0114 0zM17 11a3 3 0 10-2-5.2M22 20a7 7 0 00-5-6.7" />
+      <>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </>
     ),
   },
   {
     title: "Zo geregeld",
     sub: "in 1 minuut jouw match",
-    icon: <path d="M12 22a10 10 0 100-20 10 10 0 000 20zM8 12l3 3 5-6" />,
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="m9 12 2 2 4-4" />
+      </>
+    ),
   },
 ];
 
 export function TrustBar() {
   return (
-    <section className="bg-cream">
+    <section className="border-y border-line bg-cream">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <h2 className="text-center font-display text-2xl font-semibold tracking-tight text-teal">
           Jij verdient de beste deal
@@ -43,21 +57,21 @@ export function TrustBar() {
               className="flex flex-col items-center text-center"
             >
               <svg
-                width="34"
-                height="34"
+                width="32"
+                height="32"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="var(--color-teal)"
-                strokeWidth="1.3"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
                 {item.icon}
               </svg>
-              <p className="mt-3 font-display text-lg leading-tight text-teal">
+              <p className="mt-4 font-display text-lg font-semibold leading-tight text-teal">
                 {item.title}
               </p>
-              <p className="text-sm text-muted">{item.sub}</p>
+              <p className="mt-0.5 text-sm text-muted">{item.sub}</p>
             </div>
           ))}
         </div>
