@@ -5,6 +5,8 @@ import { reviews } from "@/data/reviews";
 import { TrustBar } from "@/components/TrustBar";
 import { StarRating } from "@/components/StarRating";
 import { ProductImage } from "@/components/ProductImage";
+import { BekendVan } from "@/components/BekendVan";
+import { ReviewsCarousel } from "@/components/ReviewsCarousel";
 
 function formatPrice(price: number) {
   return `€${price.toFixed(2).replace(".", ",")}`;
@@ -49,6 +51,39 @@ export default function HomePage() {
 
   return (
     <>
+      {/* Bekend van */}
+      <BekendVan />
+
+      {/* Bespaar / herkenbare frustraties */}
+      <section className="border-b border-line bg-cream">
+        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
+          <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+            Bespaar tot{" "}
+            <span className="text-teal">€120 per jaar</span> op jouw make-up
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-muted">
+            Te veel keuze, onduidelijke prijzen en telkens de verkeerde tint
+            kopen — make-up uitkiezen is een gedoe en je betaalt al snel te
+            veel. Wij vergelijken het voor je, zodat je in één oogopslag ziet
+            welk product écht bij jou past en waar je het voordeligst uit bent.
+          </p>
+          <div className="mt-10 grid gap-8 sm:grid-cols-3">
+            {[
+              { stat: "Geen miskopen", sub: "altijd de juiste tint en finish" },
+              { stat: "Geen te hoge prijs", sub: "wij vinden de scherpste deal" },
+              { stat: "Geen eindeloos zoeken", sub: "in 1 minuut jouw match" },
+            ].map((b) => (
+              <div key={b.stat}>
+                <p className="font-display text-xl font-semibold text-teal">
+                  {b.stat}
+                </p>
+                <p className="mt-1 text-sm text-muted">{b.sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Hero met categorieën */}
       <section className="border-b border-line bg-teal text-cream">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
@@ -158,10 +193,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Waarom bestebeautydeals */}
+      <section className="border-t border-line bg-cream">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
+          <div className="mb-10 max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">
+              Waarom bestebeautydeals
+            </span>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+              Slimmer kiezen, zonder gedoe
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "100% onafhankelijk",
+                text: "We vergelijken objectief op kwaliteit, prijs en reviews — niet op wie het meest betaalt.",
+              },
+              {
+                title: "Afgestemd op jouw huid",
+                text: "Onze zoekhulp houdt rekening met huidtype, leeftijd, dekking en ondertoon.",
+              },
+              {
+                title: "Altijd de scherpste prijs",
+                text: "We tonen waar je het voordeligst uit bent, zodat je nooit te veel betaalt.",
+              },
+              {
+                title: "Door vrouwen, voor vrouwen",
+                text: "Samengesteld op basis van echte ervaringen van 200.000+ gebruiksters.",
+              },
+            ].map((w) => (
+              <div
+                key={w.title}
+                className="rounded-xl border border-line bg-white p-6"
+              >
+                <h3 className="font-display text-lg font-semibold tracking-tight text-charcoal">
+                  {w.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {w.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Reviews */}
       <section className="border-t border-line">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-8 max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">
               Ervaringen
             </span>
@@ -169,22 +250,7 @@ export default function HomePage() {
               Wat onze bezoekers zeggen
             </h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {reviews.map((r) => (
-              <figure
-                key={r.id}
-                className="flex flex-col rounded-xl border border-line bg-white p-6"
-              >
-                <StarRating rating={r.rating} />
-                <blockquote className="mt-4 flex-1 leading-relaxed text-charcoal">
-                  “{r.quote}”
-                </blockquote>
-                <figcaption className="mt-5 border-t border-line pt-4 text-sm font-medium text-muted">
-                  {r.name} — {r.location}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <ReviewsCarousel reviews={reviews} />
         </div>
       </section>
     </>

@@ -59,4 +59,10 @@ export interface Review {
   rating: number;
   quote: string;
   productName?: string;
+  /** Korte kop boven de review, Trustpilot-stijl. */
+  title?: string;
+  /** Weergavedatum, bijv. "3 dagen geleden". */
+  date?: string;
+  /** Geverifieerde review-badge. */
+  verified?: boolean;
 }
