@@ -5,7 +5,7 @@ import type { Review } from "@/data/types";
 import { TrustpilotStars } from "./TrustpilotStars";
 
 function TrustStars({ rating }: { rating: number }) {
-  return <TrustpilotStars rating={rating} size={24} />;
+  return <TrustpilotStars rating={rating} size={22} />;
 }
 
 export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
@@ -20,18 +20,8 @@ export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
 
   return (
     <div>
-      {/* Trustpilot-achtige kop */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <TrustStars rating={5} />
-          <span className="text-sm">
-            <span className="font-semibold">Uitstekend</span>
-            <span className="text-muted">
-              {" "}
-              · 9,3 gemiddeld op basis van 200.000+ ervaringen
-            </span>
-          </span>
-        </div>
+      {/* Navigatie */}
+      <div className="flex justify-end">
         <div className="flex gap-2">
           <button
             type="button"
