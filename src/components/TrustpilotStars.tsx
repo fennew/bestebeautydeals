@@ -2,21 +2,17 @@
 
 /**
  * Trustpilot-sterren als afbeelding (aangeleverd bestand in /public).
- * `size` is de hoogte in pixels; breedte schaalt mee.
+ * `size` = hoogte in px; breedte schaalt mee met de natuurlijke ratio.
+ * `max-w-none` + `shrink-0` voorkomen dat een flex-parent de afbeelding indrukt.
  */
-export function TrustpilotStars({
-  rating = 5,
-  size = 28,
-}: {
-  rating?: number;
-  size?: number;
-}) {
+export function TrustpilotStars({ size = 24 }: { rating?: number; size?: number }) {
   return (
     <img
       src="/trustpilot-stars.avif"
-      alt={`${rating} van 5 sterren`}
+      alt="5 van 5 sterren"
+      height={size}
       style={{ height: size, width: "auto" }}
-      className="block"
+      className="block max-w-none shrink-0"
     />
   );
 }

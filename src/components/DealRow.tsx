@@ -61,8 +61,8 @@ export function DealRow({
               {product.brand}
             </span>
           </div>
-          <div className="mt-2 inline-block rounded-md bg-teal-light px-2.5 py-1 text-xs font-semibold text-teal">
-            gem. €{product.savings} goedkoper
+          <div className="mt-2 inline-block rounded-md bg-gold px-2.5 py-1 text-xs font-bold text-charcoal">
+            € {product.savings} goedkoper
           </div>
         </div>
 

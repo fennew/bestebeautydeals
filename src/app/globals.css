@@ -29,7 +29,7 @@
 }
 
 :root {
-  --background: var(--color-cream);
+  --background: #ffffff;
   --foreground: var(--color-charcoal);
 }
 

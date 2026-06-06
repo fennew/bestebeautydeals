@@ -8,7 +8,15 @@ function TrustStars({ rating }: { rating: number }) {
   return <TrustpilotStars rating={rating} size={22} />;
 }
 
-export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
+export function ReviewsCarousel({
+  reviews,
+  eyebrow,
+  title,
+}: {
+  reviews: Review[];
+  eyebrow?: string;
+  title?: string;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   function scroll(dir: 1 | -1) {
@@ -20,8 +28,20 @@ export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
 
   return (
     <div>
-      {/* Navigatie */}
-      <div className="flex justify-end">
+      {/* Kop op gelijke hoogte met de navigatie */}
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          {eyebrow && (
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">
+              {eyebrow}
+            </span>
+          )}
+          {title && (
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+              {title}
+            </h2>
+          )}
+        </div>
         <div className="flex gap-2">
           <button
             type="button"

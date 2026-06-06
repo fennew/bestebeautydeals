@@ -4,7 +4,7 @@ const outlets = ["Libelle", "Margriet", "Flair", "VIVA", "Beautyjournaal"];
 
 export function BekendVan() {
   return (
-    <section className="border-b border-line bg-cream">
+    <section className="border-b border-line bg-white">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Bekend van
