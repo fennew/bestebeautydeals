@@ -14,7 +14,7 @@ export function ProductImage({
 }) {
   return (
     <div
-      className={`flex items-center justify-center bg-[#f4efe8] ${className}`}
+      className={`flex items-center justify-center bg-white ${className}`}
     >
       <svg
         viewBox="0 0 120 170"
