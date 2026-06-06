@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { trustStats } from "@/data/reviews";
 import { MultiSelect } from "@/components/MultiSelect";
+import { TrustBar } from "@/components/TrustBar";
 
 // Native single-select velden.
 const fields = [
@@ -190,24 +190,24 @@ export default function ZoekenPage() {
                   onClick={sendLead}
                   className="shrink-0 rounded-xl border border-teal px-4 py-2.5 text-sm font-semibold text-teal transition-colors hover:bg-teal hover:text-white"
                 >
-                  Aanmelden
+                  Ontvangen
                 </button>
               </div>
             )}
           </div>
+          <p className="mt-3 text-xs leading-relaxed text-muted">
+            Door je e-mailadres achter te laten ga je akkoord dat we je
+            persoonlijke foundation-advies en relevante aanbiedingen mogen
+            sturen. We delen je gegevens nooit met derden en je kunt je op elk
+            moment uitschrijven. Zie ons privacybeleid.
+          </p>
         </form>
 
-        {/* Vertrouwenscijfers */}
-        <div className="mt-10 grid gap-6 border-b border-line pb-10 sm:grid-cols-3">
-          {trustStats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="font-display text-3xl font-semibold text-teal">
-                {s.value}
-              </p>
-              <p className="mt-1 text-sm text-muted">{s.label}</p>
-            </div>
-          ))}
-        </div>
+      </div>
+
+      {/* Garanties onder de vergelijker */}
+      <div className="mt-14">
+        <TrustBar variant="vergelijker" />
       </div>
     </div>
   );

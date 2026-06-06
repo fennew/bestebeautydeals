@@ -61,7 +61,7 @@ export function DealRow({
       </div>
 
       {/* kortinglabel rechtsboven */}
-      <span className="absolute -top-3 right-5 rounded-md bg-gold px-2.5 py-1 text-xs font-bold text-charcoal">
+      <span className="absolute -top-3 right-5 rounded-md bg-[#1f9d57] px-2.5 py-1 text-xs font-bold text-white">
         gemiddeld € {product.savings} korting
       </span>
 

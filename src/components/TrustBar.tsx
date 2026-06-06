@@ -1,49 +1,67 @@
-const items = [
-  {
-    title: "Altijd de scherpste deals",
-    sub: "voor jouw beauty",
-    icon: (
-      <>
-        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
-        <circle cx="7.5" cy="7.5" r="1.5" />
-      </>
-    ),
-  },
-  {
-    title: "Altijd de beste producten",
-    sub: "zorgvuldig geselecteerd",
-    icon: (
-      <>
-        <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
-        <circle cx="12" cy="8" r="6" />
-      </>
-    ),
-  },
-  {
-    title: "Vertrouwd door 200.000+",
-    sub: "vrouwen gingen je voor",
-    icon: (
-      <>
-        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </>
-    ),
-  },
-  {
-    title: "Zo geregeld",
-    sub: "in 1 minuut jouw match",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="10" />
-        <path d="m9 12 2 2 4-4" />
-      </>
-    ),
-  },
+import type { ReactNode } from "react";
+
+const icons = {
+  tag: (
+    <>
+      <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+      <circle cx="7.5" cy="7.5" r="1.5" />
+    </>
+  ),
+  award: (
+    <>
+      <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+      <circle cx="12" cy="8" r="6" />
+    </>
+  ),
+  users: (
+    <>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </>
+  ),
+  check: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  coins: (
+    <>
+      <circle cx="8" cy="8" r="6" />
+      <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
+      <path d="M7 6h1v4" />
+      <path d="m16.71 13.88.7.71-2.82 2.82" />
+    </>
+  ),
+  thumbs: (
+    <path d="M7 10v12M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
+  ),
+};
+
+type Item = { title: string; sub: string; icon: ReactNode };
+
+const defaultItems: Item[] = [
+  { title: "Altijd de scherpste deals", sub: "voor jouw beauty", icon: icons.tag },
+  { title: "Altijd de beste producten", sub: "zorgvuldig geselecteerd", icon: icons.award },
+  { title: "Vertrouwd door 200.000+", sub: "vrouwen gingen je voor", icon: icons.users },
+  { title: "Zo geregeld", sub: "in 1 minuut jouw match", icon: icons.check },
 ];
 
-export function TrustBar() {
+const vergelijkerItems: Item[] = [
+  { title: "Altijd de scherpste deals", sub: "voor jouw beauty", icon: icons.tag },
+  { title: "123.000+", sub: "vrouwen gingen je voor", icon: icons.users },
+  { title: "Bespaar gemiddeld €120", sub: "per jaar via onze vergelijker", icon: icons.coins },
+  { title: "9,3", sub: "gemiddelde klantwaardering", icon: icons.thumbs },
+];
+
+export function TrustBar({
+  variant = "default",
+}: {
+  variant?: "default" | "vergelijker";
+}) {
+  const items = variant === "vergelijker" ? vergelijkerItems : defaultItems;
   return (
     <section className="border-y border-line bg-mist">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
