@@ -49,30 +49,25 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-teal text-cream">
-        <div className="mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 md:pt-20 lg:px-8">
-          <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+      {/* Hero met categorieën */}
+      <section className="border-b border-line bg-teal text-cream">
+        <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
+          <h1 className="mx-auto max-w-3xl font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             Vergelijk en vind de beste beautydeals
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/85">
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-cream/85">
             Bespaar op je favoriete make-up en huidverzorging. Wij vergelijken
             de beste producten op prijs, kwaliteit en reviews — afgestemd op
             jouw huid.
           </p>
-          <div className="mt-7 flex items-center gap-3 text-sm text-cream/85">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3 text-sm text-cream/85">
             <StarRating rating={4.7} />
             <span className="font-semibold">9,3</span>
             <span className="h-4 w-px bg-cream/30" />
             <span>200.000+ vrouwen vergeleken hun beautyproducten</span>
           </div>
-        </div>
-      </section>
 
-      {/* Categorietegels (overlappend) */}
-      <section className="bg-cream">
-        <div className="mx-auto -mt-16 max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-5 text-left sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((c) => (
               <CategoryCard key={c.slug} c={c} />
             ))}
