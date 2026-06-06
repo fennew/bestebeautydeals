@@ -1,9 +1,9 @@
 import type { Product } from "@/data/types";
 
 /**
- * Placeholder foundation-fles op merk-/shadekleur.
- * Tot er echte productfoto's via de CMS binnenkomen, houdt dit de
- * kaarten verzorgd en consistent. Vervang later door <Image> met CMS-url.
+ * Rustige, premium placeholder-weergave van een foundation-fles.
+ * Neutrale studio-look met subtiele shade-tint i.p.v. felle kleuren.
+ * Vervang later door <Image> met echte CMS-productfoto's.
  */
 export function ProductImage({
   product,
@@ -14,45 +14,45 @@ export function ProductImage({
 }) {
   return (
     <div
-      className={`flex items-center justify-center rounded-2xl bg-blush-light ${className}`}
+      className={`flex items-center justify-center bg-[#f4efe8] ${className}`}
     >
-      <svg viewBox="0 0 120 160" className="h-40 w-auto" role="img"
-        aria-label={`${product.brand} ${product.name}`}>
-        {/* dop */}
-        <rect x="46" y="6" width="28" height="26" rx="3" fill="#2b2b2b" />
-        {/* hals */}
-        <rect x="50" y="30" width="20" height="10" fill="#3a3a3a" />
-        {/* fles */}
-        <rect
-          x="32"
-          y="40"
-          width="56"
-          height="108"
-          rx="10"
-          fill={product.shadeColor}
-        />
-        {/* glans */}
-        <rect x="38" y="48" width="8" height="92" rx="4" fill="#ffffff" opacity="0.35" />
-        {/* label */}
-        <rect x="40" y="78" width="40" height="44" rx="4" fill="#ffffff" opacity="0.85" />
+      <svg
+        viewBox="0 0 120 170"
+        className="h-44 w-auto"
+        role="img"
+        aria-label={`${product.brand} ${product.name}`}
+      >
+        {/* pompje / dop */}
+        <rect x="52" y="8" width="16" height="14" rx="2" fill="#cfc6ba" />
+        <rect x="54" y="20" width="12" height="8" fill="#bcb2a4" />
+        {/* fles — frosted glass */}
+        <rect x="36" y="28" width="48" height="128" rx="8" fill="#ffffff" />
+        <rect x="36" y="28" width="48" height="128" rx="8" fill={product.shadeColor} fillOpacity="0.28" />
+        <rect x="36" y="28" width="48" height="128" rx="8" fill="none" stroke="#e4dccf" strokeWidth="1" />
+        {/* subtiele glans */}
+        <rect x="42" y="36" width="5" height="112" rx="2.5" fill="#ffffff" opacity="0.5" />
+        {/* minimalistisch label */}
+        <line x1="36" y1="92" x2="84" y2="92" stroke="#e4dccf" strokeWidth="1" />
         <text
           x="60"
-          y="98"
+          y="84"
           textAnchor="middle"
-          fontSize="9"
-          fontWeight="700"
+          fontSize="8"
+          letterSpacing="1.5"
           fill="#2b2b2b"
-          fontFamily="sans-serif"
+          fontFamily="var(--font-inter), sans-serif"
+          fontWeight="600"
         >
-          {product.brand.toUpperCase().slice(0, 10)}
+          {product.brand.toUpperCase().slice(0, 12)}
         </text>
         <text
           x="60"
-          y="110"
+          y="104"
           textAnchor="middle"
-          fontSize="5.5"
-          fill="#6b6b6b"
-          fontFamily="sans-serif"
+          fontSize="5"
+          letterSpacing="2"
+          fill="#8a8076"
+          fontFamily="var(--font-inter), sans-serif"
         >
           FOUNDATION
         </text>

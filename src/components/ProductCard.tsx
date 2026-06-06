@@ -15,42 +15,46 @@ export function ProductCard({
 }) {
   return (
     <article
-      className={`relative flex flex-col rounded-2xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md ${
-        featured ? "ring-2 ring-coral" : "ring-1 ring-line"
+      className={`group flex flex-col overflow-hidden rounded-xl bg-white transition-colors ${
+        featured ? "border-2 border-teal" : "border border-line"
       }`}
     >
-      {product.badge && (
-        <span className="absolute left-4 top-4 z-10 rounded-full bg-teal px-3 py-1 text-xs font-semibold text-cream">
-          {product.badge}
-        </span>
-      )}
-
-      <ProductImage product={product} className="mb-4 py-2" />
-
-      <span className="text-xs font-medium uppercase tracking-wide text-coral">
-        {product.bestForLabel}
-      </span>
-      <h3 className="mt-1 font-display text-xl leading-tight">{product.brand}</h3>
-      <p className="text-sm text-muted">{product.tagline}</p>
-
-      <div className="mt-3">
-        <StarRating rating={product.rating} reviewCount={product.reviewCount} />
+      <div className="relative">
+        <ProductImage product={product} className="py-6" />
+        {product.badge && (
+          <span className="absolute left-3 top-3 rounded-full bg-teal px-3 py-1 text-xs font-medium tracking-wide text-cream">
+            {product.badge}
+          </span>
+        )}
       </div>
 
-      <div className="mt-3 flex items-baseline gap-2">
-        <span className="font-display text-2xl font-semibold">
-          {formatPrice(product.price)}
+      <div className="flex flex-1 flex-col border-t border-line p-5">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted">
+          {product.bestForLabel}
         </span>
-      </div>
+        <h3 className="mt-1.5 font-display text-xl leading-tight">
+          {product.brand}
+        </h3>
+        <p className="mt-0.5 text-sm text-muted">{product.tagline}</p>
 
-      <a
-        href={product.dealUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-4 block rounded-xl bg-coral px-4 py-3 text-center font-semibold text-white transition-colors hover:bg-coral-dark"
-      >
-        Bekijk deal
-      </a>
+        <div className="mt-3">
+          <StarRating rating={product.rating} reviewCount={product.reviewCount} />
+        </div>
+
+        <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
+          <span className="font-display text-2xl font-semibold">
+            {formatPrice(product.price)}
+          </span>
+          <a
+            href={product.dealUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg bg-coral px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-dark"
+          >
+            Bekijk deal
+          </a>
+        </div>
+      </div>
     </article>
   );
 }

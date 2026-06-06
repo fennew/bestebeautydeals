@@ -33,7 +33,7 @@ export function TrustBar() {
   return (
     <section className="bg-cream">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="text-center font-display text-3xl font-semibold text-teal">
+        <h2 className="text-center font-display text-2xl font-semibold tracking-tight text-teal">
           Jij verdient de beste deal
         </h2>
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -43,12 +43,12 @@ export function TrustBar() {
               className="flex flex-col items-center text-center"
             >
               <svg
-                width="40"
-                height="40"
+                width="34"
+                height="34"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="var(--color-teal)"
-                strokeWidth="1.6"
+                strokeWidth="1.3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
