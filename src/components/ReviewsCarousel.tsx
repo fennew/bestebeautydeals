@@ -2,24 +2,10 @@
 
 import { useRef } from "react";
 import type { Review } from "@/data/types";
+import { TrustpilotStars } from "./TrustpilotStars";
 
 function TrustStars({ rating }: { rating: number }) {
-  return (
-    <div className="flex gap-0.5" aria-label={`${rating} van 5 sterren`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <span
-          key={i}
-          className={`flex h-6 w-6 items-center justify-center ${
-            i < rating ? "bg-[#00b67a]" : "bg-[#dcdce6]"
-          }`}
-        >
-          <svg width="14" height="14" viewBox="0 0 20 20" fill="#fff">
-            <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.1l-4.94 2.6.94-5.5-4-3.9 5.53-.8L10 1.5z" />
-          </svg>
-        </span>
-      ))}
-    </div>
-  );
+  return <TrustpilotStars rating={rating} size={24} />;
 }
 
 export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
