@@ -19,19 +19,14 @@ export function Logo({
   width?: number;
 }) {
   const src = variant === "light" ? logoWhite : logoFull;
+  const height = Math.round((width * src.height) / src.width);
   return (
     <Link
       href="/"
       className={`inline-flex items-center ${className}`}
       aria-label="Beste Beauty Deals — naar de homepage"
     >
-      <Image
-        src={src}
-        alt="Beste Beauty Deals"
-        width={width}
-        height={Math.round((width * 150) / 600)}
-        priority
-      />
+      <Image src={src} alt="Beste Beauty Deals" width={width} height={height} priority />
     </Link>
   );
 }
