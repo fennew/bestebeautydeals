@@ -49,18 +49,22 @@ export function ResultatenClient() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <header className="mb-8">
-        <h1 className="font-display text-3xl font-semibold sm:text-4xl">
-          Dit zijn jouw beste foundation-deals
-        </h1>
-        <p className="mt-2 text-muted">
-          {filtered.length} resultaten — onze keuze staat bovenaan, afgestemd op
-          jouw huidprofiel.
-        </p>
-      </header>
+    <>
+      {/* Gecentreerde titel-band */}
+      <section className="bg-teal-deep text-cream">
+        <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8">
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Dit zijn jouw beste foundation-deals
+          </h1>
+          <p className="mt-2 text-cream/80">
+            {filtered.length} resultaten — onze keuze staat bovenaan, afgestemd
+            op jouw huidprofiel.
+          </p>
+        </div>
+      </section>
 
-      <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
         {/* Filters */}
         <aside className="h-fit rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line">
           <div className="flex items-center justify-between">
@@ -149,7 +153,8 @@ export function ResultatenClient() {
             </button>
           </div>
         )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

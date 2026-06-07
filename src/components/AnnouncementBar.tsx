@@ -8,6 +8,24 @@ const usps = [
   "Honderden exclusieve deals",
 ];
 
+function Check() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-coral)"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="shrink-0"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 export function AnnouncementBar() {
   const [i, setI] = useState(0);
 
@@ -18,26 +36,27 @@ export function AnnouncementBar() {
 
   return (
     <div className="border-b border-line bg-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-center px-4 py-2">
-        <span
-          key={i}
-          className="flex animate-[fadeIn_0.4s_ease] items-center gap-2 text-xs font-medium text-charcoal sm:text-sm"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="var(--color-coral)"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="shrink-0"
+      <div className="mx-auto max-w-7xl px-4 py-2 text-xs font-medium text-charcoal sm:text-sm">
+        {/* Desktop: 3 naast elkaar */}
+        <div className="hidden items-center justify-center gap-10 md:flex">
+          {usps.map((u) => (
+            <span key={u} className="flex items-center gap-2">
+              <Check />
+              {u}
+            </span>
+          ))}
+        </div>
+
+        {/* Mobiel: auto-slider */}
+        <div className="flex items-center justify-center md:hidden">
+          <span
+            key={i}
+            className="flex animate-[fadeIn_0.4s_ease] items-center gap-2"
           >
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
-          {usps[i]}
-        </span>
+            <Check />
+            {usps[i]}
+          </span>
+        </div>
       </div>
     </div>
   );
