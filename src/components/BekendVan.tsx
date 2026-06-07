@@ -1,6 +1,6 @@
 // Placeholder "Bekend van"-logo's (tekstueel). Vervang later door echte
 // persmedia-logo's in /public en render ze als <Image>.
-const outlets = ["Libelle", "Margriet", "Flair", "VIVA", "Beautyjournaal"];
+const outlets = ["LINDA.", "Cosmopolitan", "Women's Health"];
 
 export function BekendVan() {
   return (

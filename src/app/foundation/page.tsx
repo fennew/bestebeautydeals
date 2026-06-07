@@ -76,13 +76,13 @@ export default function FoundationPage() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/foundation/zoeken"
-                className="rounded-lg bg-coral px-6 py-3.5 font-semibold text-white transition-colors hover:bg-coral-dark"
+                className="rounded-lg bg-white px-6 py-3.5 font-semibold text-brand-text transition-colors hover:bg-cream"
               >
                 Vind jouw foundation
               </Link>
               <a
                 href="#alle-foundations"
-                className="font-medium text-cream underline-offset-4 hover:underline"
+                className="font-medium text-cream underline underline-offset-4"
               >
                 Bekijk alle foundations
               </a>
