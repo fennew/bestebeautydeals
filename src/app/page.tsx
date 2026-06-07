@@ -64,7 +64,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero met categorieën — donkere anker-sectie */}
-      <section className="border-b border-line bg-teal-deep text-cream">
+      <section className="border-b border-line bg-gradient-to-br from-brand to-brand-deep text-cream">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
           <h1 className="mx-auto max-w-3xl font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Vergelijk en vind de beste beautydeals

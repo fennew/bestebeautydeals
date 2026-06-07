@@ -59,7 +59,7 @@ export default function FoundationPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero — donkere teal-band, tekst links + vierkante foto rechts */}
-      <section className="border-b border-line bg-teal-deep text-cream">
+      <section className="border-b border-line bg-gradient-to-br from-brand to-brand-deep text-cream">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-20 lg:px-8">
           <div>
             <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
