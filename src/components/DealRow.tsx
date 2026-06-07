@@ -56,10 +56,12 @@ export function DealRow({
         )}
       </div>
 
-      {/* kortinglabel rechtsboven */}
-      <span className="absolute -top-3 right-5 rounded-md bg-[#1f9d57] px-2.5 py-1 text-xs font-bold text-white">
-        gemiddeld € {product.savings} korting
-      </span>
+      {/* kortinglabel rechtsboven (alleen tonen als er korting is) */}
+      {product.savings > 0 && (
+        <span className="absolute -top-3 right-5 rounded-md bg-[#1f9d57] px-2.5 py-1 text-xs font-bold text-white">
+          gemiddeld €{product.savings} korting
+        </span>
+      )}
 
       <div className="grid items-center gap-6 pt-2 md:grid-cols-[160px_1fr_220px]">
         {/* vierkante productfoto */}
@@ -80,7 +82,7 @@ export function DealRow({
             </li>
           ))}
             <li className="pt-1">
-              <StarRating rating={product.rating} reviewCount={product.reviewCount} />
+              <StarRating rating={product.rating} />
             </li>
           </ul>
         </div>

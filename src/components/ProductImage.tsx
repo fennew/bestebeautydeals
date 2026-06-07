@@ -12,6 +12,20 @@ export function ProductImage({
   product: Product;
   className?: string;
 }) {
+  // Echte productfoto uit de CMS, indien aanwezig.
+  if (product.image) {
+    return (
+      <div className={`flex items-center justify-center bg-white ${className}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={product.image}
+          alt={`${product.brand} ${product.name}`}
+          className="max-h-44 w-full object-contain"
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`flex items-center justify-center bg-white ${className}`}

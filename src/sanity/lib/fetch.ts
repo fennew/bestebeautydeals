@@ -18,7 +18,7 @@ type SanityProduct = {
   brand: string;
   tagline?: string;
   price: number;
-  savings?: number;
+  priceOriginal?: number;
   score?: number;
   rating?: number;
   reviewCount?: number;
@@ -35,6 +35,11 @@ type SanityProduct = {
 };
 
 function mapProduct(p: SanityProduct): Product {
+  // Besparing automatisch: van-prijs minus huidige prijs (afgerond op hele euro).
+  const savings =
+    p.priceOriginal && p.priceOriginal > p.price
+      ? Math.round(p.priceOriginal - p.price)
+      : 0;
   return {
     id: p._id,
     slug: p.slug,
@@ -56,7 +61,7 @@ function mapProduct(p: SanityProduct): Product {
     pros: p.pros ?? [],
     cons: p.cons ?? [],
     dealUrl: p.dealUrl ?? "#",
-    savings: p.savings ?? 0,
+    savings,
     shadeColor: "#e7c4a0",
     sortOrder: p.rank ?? 100,
     image: p.image,
@@ -64,7 +69,7 @@ function mapProduct(p: SanityProduct): Product {
 }
 
 const PRODUCTS_QUERY = `*[_type == "product" && category->slug.current == $cat]{
-  _id, name, "slug": slug.current, brand, tagline, price, savings, score, rating,
+  _id, name, "slug": slug.current, brand, tagline, price, priceOriginal, score, rating,
   reviewCount, badge, bestForLabel, skinTypes, coverage, finish, pros, cons,
   dealUrl, rank, "image": image.asset->url
 } | order(rank asc)`;
