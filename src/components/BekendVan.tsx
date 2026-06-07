@@ -1,6 +1,11 @@
-// Placeholder "Bekend van"-logo's (tekstueel). Vervang later door echte
-// persmedia-logo's in /public en render ze als <Image>.
-const outlets = ["LINDA.", "Cosmopolitan", "Women's Health"];
+/* eslint-disable @next/next/no-img-element */
+
+// "Bekend van"-logo's in /public/logos — later beheerbaar via de CMS.
+const outlets = [
+  { name: "LINDA.", src: "/logos/linda.avif", h: 22 },
+  { name: "Cosmopolitan", src: "/logos/cosmopolitan.avif", h: 16 },
+  { name: "Women's Health", src: "/logos/womenshealth.jpg", h: 26 },
+];
 
 export function BekendVan() {
   return (
@@ -9,14 +14,15 @@ export function BekendVan() {
         <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Bekend van
         </p>
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-70">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {outlets.map((o) => (
-            <span
-              key={o}
-              className="font-display text-xl font-semibold tracking-tight text-charcoal/70"
-            >
-              {o}
-            </span>
+            <img
+              key={o.name}
+              src={o.src}
+              alt={o.name}
+              style={{ height: o.h }}
+              className="w-auto opacity-80"
+            />
           ))}
         </div>
       </div>
