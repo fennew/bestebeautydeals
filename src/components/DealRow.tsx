@@ -13,7 +13,7 @@ function Check() {
       height="16"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="var(--color-teal)"
+      stroke="var(--color-verified)"
       strokeWidth="2.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -46,11 +46,7 @@ export function DealRow({
     >
       {/* rang + (optioneel) onze keuze */}
       <div className="absolute -top-3 left-5 flex items-center gap-2">
-        <span
-          className={`flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold text-white ${
-            featured ? "bg-teal" : "bg-charcoal"
-          }`}
-        >
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-rank text-sm font-semibold text-white">
           {rank}
         </span>
         {featured && (

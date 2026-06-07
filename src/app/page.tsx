@@ -131,7 +131,7 @@ export default function HomePage() {
       </section>
 
       {/* Bespaar — donkere anker-sectie, links uitgelijnd */}
-      <section className="bg-teal-deep text-cream">
+      <section className="bg-ink text-cream">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1fr_auto] md:py-20 lg:px-8">
           <div className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.22em] text-blush">

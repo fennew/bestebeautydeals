@@ -15,7 +15,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-teal text-cream">
+    <header className="bg-ink text-cream">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3 sm:px-6 lg:px-8">
         <Logo variant="light" width={220} />
 
@@ -65,7 +65,7 @@ export function Header() {
       {/* Slide-in drawer vanaf rechts */}
       <nav
         aria-label="Mobiel menu"
-        className={`fixed right-0 top-0 z-50 h-full w-72 max-w-[80%] bg-teal text-cream shadow-2xl transition-transform duration-300 ease-out md:hidden ${
+        className={`fixed right-0 top-0 z-50 h-full w-72 max-w-[80%] bg-ink text-cream shadow-2xl transition-transform duration-300 ease-out md:hidden ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >

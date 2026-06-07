@@ -62,7 +62,7 @@ export default function FoundationPage() {
       <section className="border-b border-line bg-teal-deep text-cream">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-20 lg:px-8">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-blush">
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
               Foundation-vergelijker
             </span>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">

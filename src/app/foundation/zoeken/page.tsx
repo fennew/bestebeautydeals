@@ -102,7 +102,7 @@ export default function ZoekenPage() {
       {/* Hero met horizontale widget */}
       <section className="bg-teal-deep">
         <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8">
-          <span className="text-xs font-semibold uppercase tracking-[0.22em] text-blush">
+          <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
             Foundation-vergelijker
           </span>
           <h1 className="mt-4 max-w-2xl font-display text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
