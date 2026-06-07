@@ -136,7 +136,7 @@ export default function FoundationPage() {
       <TrustBar />
 
       {/* FAQ / koopgids */}
-      <section className="border-t border-line bg-soft-pink">
+      <section className="border-t border-line bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-teal">
             Koopgids
