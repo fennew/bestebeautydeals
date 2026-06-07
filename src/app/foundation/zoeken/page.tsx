@@ -100,7 +100,7 @@ export default function ZoekenPage() {
   return (
     <div className="bg-white">
       {/* Hero met horizontale widget */}
-      <section className="bg-brand bg-gradient-to-b from-transparent to-black/20">
+      <section className="bg-brand bg-gradient-to-b from-transparent to-black/12">
         <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
             Foundation-vergelijker

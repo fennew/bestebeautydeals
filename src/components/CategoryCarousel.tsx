@@ -6,7 +6,7 @@ import { categories } from "@/data/categories";
 
 function CategoryCard({ c }: { c: (typeof categories)[number] }) {
   return (
-    <div className="w-[28rem] max-w-[85vw] shrink-0 snap-start overflow-hidden rounded-xl border border-line bg-white text-charcoal shadow-sm">
+    <div className="w-72 max-w-[85vw] shrink-0 snap-start overflow-hidden rounded-xl border border-line bg-white text-charcoal shadow-sm">
       <div className="relative aspect-[5/2] bg-panel-featured">
         {c.image ? (
           // eslint-disable-next-line @next/next/no-img-element

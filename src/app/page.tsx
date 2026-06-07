@@ -15,16 +15,15 @@ export default function HomePage() {
   return (
     <>
       {/* Hero met categorieën-carrousel */}
-      <section className="border-b border-line bg-brand bg-gradient-to-b from-transparent to-black/20 text-cream">
+      <section className="border-b border-line bg-brand bg-gradient-to-b from-transparent to-black/12 text-cream">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Vergelijk en vind de beste beautydeals
+              Vind hier de Beste Beauty Deals
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-cream/85">
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-cream/85">
               Bespaar op je favoriete make-up en huidverzorging. Wij vergelijken
-              de beste producten op prijs, kwaliteit en reviews — afgestemd op
-              jouw huid.
+              de beste producten op prijs, kwaliteit en reviews — afgestemd op jouw huid.
             </p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-3 text-sm text-cream/85">
               <StarRating rating={4.7} showNumber={false} />
