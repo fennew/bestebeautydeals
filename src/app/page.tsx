@@ -11,33 +11,48 @@ import { Starburst } from "@/components/Starburst";
 
 function CategoryCard({ c }: { c: (typeof categories)[number] }) {
   return (
-    <div className="flex flex-col justify-between rounded-xl border border-line bg-white p-6 text-charcoal shadow-sm">
-      <div>
-        <div className="flex items-center justify-between">
-          <h3 className="font-display text-xl font-semibold tracking-tight">
-            {c.name}
-          </h3>
-          {!c.available && (
-            <span className="rounded-full bg-mist px-2.5 py-1 text-xs font-medium text-muted">
-              Binnenkort
+    <div className="overflow-hidden rounded-xl border border-line bg-white text-charcoal shadow-sm">
+      {/* foto */}
+      <div className="relative h-40 bg-blush-light">
+        {c.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={c.image}
+            alt={c.name}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="font-display text-2xl font-semibold text-teal/40">
+              {c.name}
             </span>
-          )}
-        </div>
-        <p className="mt-1 text-sm text-muted">{c.tagline}</p>
+          </div>
+        )}
+        {!c.available && (
+          <span className="absolute right-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-muted shadow-sm">
+            Binnenkort
+          </span>
+        )}
       </div>
-      <div className="mt-6 flex items-center gap-4">
-        <Link
-          href={c.compareHref}
-          className="rounded-lg bg-coral px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-dark"
-        >
-          Vergelijk
-        </Link>
-        <Link
-          href={c.dealsHref}
-          className="text-sm font-medium text-teal underline-offset-4 hover:underline"
-        >
-          Beste deals →
-        </Link>
+
+      <div className="p-5">
+        <h3 className="font-display text-xl font-semibold tracking-tight">
+          {c.name}
+        </h3>
+        <div className="mt-4 flex items-center gap-4">
+          <Link
+            href={c.compareHref}
+            className="rounded-lg bg-coral px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-dark"
+          >
+            Vergelijk
+          </Link>
+          <Link
+            href={c.dealsHref}
+            className="text-sm font-medium text-teal underline-offset-4 hover:underline"
+          >
+            Beste deals →
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -51,10 +66,7 @@ export default function HomePage() {
       {/* Hero met categorieën — donkere anker-sectie */}
       <section className="border-b border-line bg-teal-deep text-cream">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 md:py-20 lg:px-8">
-          <span className="text-xs font-semibold uppercase tracking-[0.22em] text-blush">
-            Vergelijk &amp; bespaar
-          </span>
-          <h1 className="mx-auto mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mx-auto max-w-3xl font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Vergelijk en vind de beste beautydeals
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-cream/85">
@@ -63,7 +75,7 @@ export default function HomePage() {
             jouw huid.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3 text-sm text-cream/85">
-            <StarRating rating={4.7} />
+            <StarRating rating={4.7} showNumber={false} />
             <span className="font-semibold">9,3</span>
             <span className="h-4 w-px bg-cream/30" />
             <span>200.000+ vrouwen vergeleken hun beautyproducten</span>

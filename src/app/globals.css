@@ -43,6 +43,17 @@ body {
   font-family: var(--font-sans);
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Alle koppen in een strak, professioneel sans-lettertype */
 h1,
 h2,

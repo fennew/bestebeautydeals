@@ -1,8 +1,10 @@
 export interface Category {
   name: string;
   slug: string;
-  /** Korte omschrijving onder de titel. */
+  /** Korte omschrijving (niet meer getoond op de kaart, wel beschikbaar). */
   tagline: string;
+  /** Foto in /public — later beheerbaar via de CMS. */
+  image?: string;
   /** Link naar de vergelijk-/zoekflow van deze categorie. */
   compareHref: string;
   /** Link naar de collectie-/dealpagina. */
@@ -16,6 +18,7 @@ export const categories: Category[] = [
     name: "Foundation",
     slug: "foundation",
     tagline: "Vind jouw perfecte tint en finish",
+    image: "/hero-foundation.png",
     compareHref: "/foundation/zoeken",
     dealsHref: "/foundation",
     available: true,

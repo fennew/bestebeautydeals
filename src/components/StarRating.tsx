@@ -2,10 +2,12 @@ export function StarRating({
   rating,
   reviewCount,
   size = "sm",
+  showNumber = true,
 }: {
   rating: number;
   reviewCount?: number;
   size?: "sm" | "md";
+  showNumber?: boolean;
 }) {
   const full = Math.round(rating);
   const px = size === "md" ? 18 : 15;
@@ -24,6 +26,7 @@ export function StarRating({
           </svg>
         ))}
       </div>
+      {showNumber && (
       <span className="text-sm text-muted">
         <span className="sr-only">Beoordeling </span>
         {rating.toFixed(1).replace(".", ",")}
@@ -31,6 +34,7 @@ export function StarRating({
           <span className="text-muted"> ({reviewCount})</span>
         )}
       </span>
+      )}
     </div>
   );
 }
