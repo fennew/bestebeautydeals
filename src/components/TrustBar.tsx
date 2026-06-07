@@ -58,7 +58,7 @@ export function TrustBar({
 }) {
   const items = variant === "vergelijker" ? vergelijkerItems : defaultItems;
   return (
-    <section className="border-y border-line bg-mist">
+    <section className="border-y border-line bg-soft-pink">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <h2 className="text-center font-display text-2xl font-semibold tracking-tight text-teal">
           Jij verdient de beste deal

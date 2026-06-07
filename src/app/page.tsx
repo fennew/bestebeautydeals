@@ -19,7 +19,9 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Vind hier de Beste Beauty Deals
+              Vind hier de{" "}
+              <br className="hidden md:block" />
+              Beste Beauty Deals
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-cream/85">
               Bespaar op je favoriete make-up en huidverzorging. Wij vergelijken
@@ -70,7 +72,7 @@ export default function HomePage() {
       <TrustBar />
 
       {/* Reviews */}
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-line bg-soft-pink">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <ReviewsCarousel
             reviews={reviews}
