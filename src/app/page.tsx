@@ -72,7 +72,7 @@ export default function HomePage() {
       <TrustBar />
 
       {/* Reviews */}
-      <section className="border-b border-line bg-soft-pink">
+      <section className="border-b border-line bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
           <ReviewsCarousel
             reviews={reviews}

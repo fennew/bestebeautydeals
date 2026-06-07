@@ -2,15 +2,17 @@
 
 /**
  * Trustpilot-sterren als afbeelding (aangeleverd bestand in /public).
- * `size` = hoogte in px; breedte volgt de natuurlijke ratio van de afbeelding
- * (browser leest de echte ratio uit de gedecodeerde afbeelding).
+ * Vaste bron-ratio 350×77; `size` = hoogte in px, breedte volgt die ratio.
  */
-export function TrustpilotStars({ size = 32 }: { rating?: number; size?: number }) {
+export function TrustpilotStars({ size = 24 }: { rating?: number; size?: number }) {
+  const width = Math.round((size * 350) / 77);
   return (
     <img
       src="/trustpilot-stars.avif"
       alt="5 van 5 sterren"
-      style={{ height: size, width: "auto" }}
+      width={width}
+      height={size}
+      style={{ width, height: size }}
       className="block max-w-none shrink-0"
     />
   );
