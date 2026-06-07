@@ -2,8 +2,9 @@ import { client } from "./client";
 import type { Product, Review } from "@/data/types";
 import type { Category } from "@/data/categories";
 
-// Korte revalidate zodat edits in de Studio snel live komen.
-const opts = { next: { revalidate: 60 } } as const;
+// Altijd verse data ophalen, zodat edits in de Studio direct live komen.
+// (Later voor productie evt. terug naar ISR + webhook voor performance.)
+const opts = { cache: "no-store" } as const;
 
 // Lokale fallback-afbeeldingen per categorie (tot er foto's via de CMS komen).
 const localCategoryImages: Record<string, string> = {
