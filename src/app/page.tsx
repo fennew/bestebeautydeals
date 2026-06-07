@@ -13,7 +13,7 @@ function CategoryCard({ c }: { c: (typeof categories)[number] }) {
   return (
     <div className="overflow-hidden rounded-xl border border-line bg-white text-charcoal shadow-sm">
       {/* foto */}
-      <div className="relative h-40 bg-blush-light">
+      <div className="relative aspect-square bg-blush-light">
         {c.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
