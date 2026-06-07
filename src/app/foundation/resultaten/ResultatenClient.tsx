@@ -51,7 +51,7 @@ export function ResultatenClient() {
   return (
     <>
       {/* Gecentreerde titel-band */}
-      <section className="bg-gradient-to-br from-brand to-brand-deep text-cream">
+      <section className="bg-brand bg-gradient-to-b from-transparent to-black/35 text-cream">
         <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             Dit zijn jouw beste foundation-deals
