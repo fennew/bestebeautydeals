@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getFoundations } from "@/data/products";
+import { getFoundations } from "@/sanity/lib/fetch";
 import { ProductCard } from "@/components/ProductCard";
 import { TrustBar } from "@/components/TrustBar";
 import heroImg from "../../../public/hero-foundation.png";
@@ -39,8 +39,8 @@ const faqs = [
   },
 ];
 
-export default function FoundationPage() {
-  const foundations = getFoundations();
+export default async function FoundationPage() {
+  const foundations = await getFoundations();
 
   const faqJsonLd = {
     "@context": "https://schema.org",

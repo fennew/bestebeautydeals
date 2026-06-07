@@ -2,9 +2,9 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { categories } from "@/data/categories";
+import type { Category } from "@/data/categories";
 
-function CategoryCard({ c }: { c: (typeof categories)[number] }) {
+function CategoryCard({ c }: { c: Category }) {
   return (
     <div className="w-72 max-w-[85vw] shrink-0 snap-start overflow-hidden rounded-xl border border-line bg-white text-charcoal shadow-sm">
       <div className="relative aspect-[5/2] bg-panel-featured">
@@ -47,7 +47,7 @@ function CategoryCard({ c }: { c: (typeof categories)[number] }) {
   );
 }
 
-export function CategoryCarousel() {
+export function CategoryCarousel({ categories }: { categories: Category[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   function scroll(dir: 1 | -1) {

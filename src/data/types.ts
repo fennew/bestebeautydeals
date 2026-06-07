@@ -48,6 +48,8 @@ export interface Product {
   savings: number;
   /** Hex-kleur voor de placeholder-fles tot er echte foto's via CMS komen. */
   shadeColor: string;
+  /** Optionele productfoto-URL (uit CMS). */
+  image?: string;
   /** Forceert volgorde: lager = hoger in de lijst. MAY krijgt 0. */
   sortOrder: number;
 }

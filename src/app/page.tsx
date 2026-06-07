@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { getFoundations } from "@/data/products";
-import { reviews } from "@/data/reviews";
+import { getFoundations, getCategories, getReviews } from "@/sanity/lib/fetch";
 import { StarRating } from "@/components/StarRating";
 import { ProductCard } from "@/components/ProductCard";
 import { BekendVan } from "@/components/BekendVan";
@@ -9,8 +8,13 @@ import { TrustBar } from "@/components/TrustBar";
 import { Starburst } from "@/components/Starburst";
 import { CategoryCarousel } from "@/components/CategoryCarousel";
 
-export default function HomePage() {
-  const topDeals = getFoundations().slice(0, 3);
+export default async function HomePage() {
+  const [foundations, categories, reviews] = await Promise.all([
+    getFoundations(),
+    getCategories(),
+    getReviews(),
+  ]);
+  const topDeals = foundations.slice(0, 3);
 
   return (
     <>
@@ -36,7 +40,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12">
-            <CategoryCarousel />
+            <CategoryCarousel categories={categories} />
           </div>
         </div>
       </section>

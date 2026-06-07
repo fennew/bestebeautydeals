@@ -1,10 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { getFoundations, brands } from "@/data/products";
 import { DealRow } from "@/components/DealRow";
-import type { SkinType } from "@/data/types";
+import type { Product, SkinType } from "@/data/types";
 
 const skinOptions: { value: SkinType | "alle"; label: string }[] = [
   { value: "alle", label: "Alle huidtypes" },
@@ -14,15 +13,18 @@ const skinOptions: { value: SkinType | "alle"; label: string }[] = [
   { value: "gemengd", label: "Gemengde huid" },
 ];
 
-export function ResultatenClient() {
+export function ResultatenClient({
+  products,
+  brands,
+}: {
+  products: Product[];
+  brands: { id: string; name: string }[];
+}) {
   const params = useSearchParams();
   const initialSkin = (params.get("skin") as SkinType | null) ?? "alle";
 
-  const all = useMemo(() => getFoundations(), []);
-  const foundationBrands = useMemo(
-    () => brands.filter((b) => all.some((p) => p.brandId === b.id)),
-    [all],
-  );
+  const all = products;
+  const foundationBrands = brands;
 
   const [maxPrice, setMaxPrice] = useState(100);
   const [skin, setSkin] = useState<SkinType | "alle">(initialSkin);
