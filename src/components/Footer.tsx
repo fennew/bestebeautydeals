@@ -58,8 +58,8 @@ export function Footer() {
       </div>
       <div className="border-t border-cream/10">
         <div className="mx-auto max-w-7xl px-4 py-5 text-xs text-cream/60 sm:px-6 lg:px-8">
-          © {new Date().getFullYear()} Beste Beauty Deals — onderdeel van MAY
-          Cosmetics. Alle prijzen onder voorbehoud.
+          © {new Date().getFullYear()} Beste Beauty Deals. Alle rechten
+          voorbehouden.
         </div>
       </div>
     </footer>
