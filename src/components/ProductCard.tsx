@@ -43,7 +43,7 @@ export function ProductCard({
 
       <div className="flex flex-1 flex-col p-5 pt-4">
         <h3 className="font-display text-xl font-semibold leading-tight text-charcoal">
-          {product.brand}
+          {product.brand} — {product.name}
         </h3>
 
         <div className="mt-3">

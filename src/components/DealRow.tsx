@@ -72,7 +72,7 @@ export function DealRow({
         {/* titel + USP's */}
         <div>
           <h3 className="mb-2 font-display text-lg font-semibold tracking-tight text-charcoal">
-            {product.name}
+            {product.brand} — {product.name}
           </h3>
           <ul className="space-y-1.5">
             {usps.map((u) => (
