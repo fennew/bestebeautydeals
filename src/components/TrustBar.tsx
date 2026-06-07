@@ -27,13 +27,8 @@ const icons = {
       <path d="m9 12 2 2 4-4" />
     </>
   ),
-  coins: (
-    <>
-      <circle cx="8" cy="8" r="6" />
-      <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
-      <path d="M7 6h1v4" />
-      <path d="m16.71 13.88.7.71-2.82 2.82" />
-    </>
+  euro: (
+    <path d="M4 10h12M4 14h9M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2" />
   ),
   thumbs: (
     <path d="M7 10v12M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
@@ -52,7 +47,7 @@ const defaultItems: Item[] = [
 const vergelijkerItems: Item[] = [
   { title: "Altijd de scherpste deals", sub: "voor jouw beauty", icon: icons.tag },
   { title: "123.000+", sub: "vrouwen gingen je voor", icon: icons.users },
-  { title: "Bespaar gemiddeld €120", sub: "per jaar op je make-up", icon: icons.coins },
+  { title: "Bespaar gemiddeld €120", sub: "per jaar op je make-up", icon: icons.euro },
   { title: "9,3", sub: "gemiddelde klantwaardering", icon: icons.thumbs },
 ];
 
