@@ -42,16 +42,12 @@ export function ProductCard({
       </div>
 
       <div className="flex flex-1 flex-col p-5 pt-4">
-        <span className="text-xs font-medium uppercase tracking-wider text-muted">
-          {product.bestForLabel}
-        </span>
-        <h3 className="mt-1.5 font-display text-xl font-semibold leading-tight text-charcoal">
+        <h3 className="font-display text-xl font-semibold leading-tight text-charcoal">
           {product.brand}
         </h3>
-        <p className="mt-0.5 text-sm text-muted">{product.tagline}</p>
 
         <div className="mt-3">
-          <StarRating rating={product.rating} reviewCount={product.reviewCount} />
+          <StarRating rating={product.rating} size="md" />
         </div>
 
         <div className="mt-4 flex items-end justify-between border-t border-line pt-4">
