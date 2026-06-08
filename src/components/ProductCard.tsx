@@ -38,7 +38,7 @@ export function ProductCard({
             -{discountPct}%
           </span>
         )}
-        <ProductImage product={product} className="h-full w-full bg-soft-pink p-4" />
+        <ProductImage product={product} cover className="bg-soft-pink" />
       </div>
 
       <div className="flex flex-1 flex-col border-t border-line p-5">

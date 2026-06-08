@@ -8,12 +8,25 @@ import type { Product } from "@/data/types";
 export function ProductImage({
   product,
   className = "",
+  cover = false,
 }: {
   product: Product;
   className?: string;
+  /** True = foto vult het hele vlak (object-cover); anders gecentreerd (contain). */
+  cover?: boolean;
 }) {
   // Echte productfoto uit de CMS, indien aanwezig.
   if (product.image) {
+    if (cover) {
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={product.image}
+          alt={`${product.brand} ${product.name}`}
+          className={`h-full w-full object-cover ${className}`}
+        />
+      );
+    }
     return (
       <div className={`flex items-center justify-center bg-white ${className}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
