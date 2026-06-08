@@ -94,9 +94,9 @@ export default function ZoekenPage() {
           <h1 className="mx-auto mt-4 max-w-2xl font-display text-3xl font-semibold text-white sm:mx-0 sm:text-4xl lg:text-5xl">
             Foundation vergelijken? Vind de beste deals
           </h1>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-cream/80 sm:mx-0 sm:text-base">
-            Vul je huidprofiel in en zie direct de best passende deals voor
-            jouw huid.
+          <p className="mx-auto mt-3 max-w-xl text-cream/80 sm:mx-0">
+            Vul je huidprofiel in en wij tonen direct de best passende
+            foundation-deals — afgestemd op jouw huid.
           </p>
         </div>
       </section>
@@ -129,13 +129,14 @@ export default function ZoekenPage() {
 
             <label className="block">
               <span className="text-sm font-semibold text-charcoal">
-                Welk foundationmerk gebruik je nu?
+                Welk foundationmerk gebruik je nu?{" "}
+                <span className="font-normal text-muted">(optioneel)</span>
               </span>
               <input
                 type="text"
                 value={values.currentBrand ?? ""}
                 onChange={(e) => set("currentBrand", e.target.value)}
-                placeholder="Optioneel — bijv. MAY, L'Oréal of geen"
+                placeholder="Bijv. L'Oréal, Maybelline, MAC"
                 className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-3 text-charcoal outline-none focus:border-teal"
               />
             </label>
