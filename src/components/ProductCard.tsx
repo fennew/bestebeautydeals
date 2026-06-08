@@ -24,14 +24,15 @@ export function ProductCard({
           : "border border-line shadow-sm"
       }`}
     >
-      {/* Full-width fotopaneel */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-xl">
-        {/* ONZE KEUZE badge — volledig binnen de kaart, bovenaan gecentreerd */}
-        {featured && (
-          <span className="absolute left-1/2 top-3 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-teal px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white shadow-sm">
-            Onze keuze
-          </span>
-        )}
+      {/* ONZE KEUZE badge — gecentreerd precies op de bovenrand van de kaart */}
+      {featured && (
+        <span className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-teal px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white shadow-sm">
+          Onze keuze
+        </span>
+      )}
+
+      {/* Full-width fotopaneel (1:1 — past exact op de vierkante productfoto's) */}
+      <div className="relative aspect-square w-full overflow-hidden rounded-t-xl">
         {!featured && discountPct > 0 && (
           <span className="absolute right-3 top-3 z-10 rounded-md bg-coral-soft px-2 py-1 text-xs font-bold text-coral-deep">
             -{discountPct}%
