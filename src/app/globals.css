@@ -25,7 +25,7 @@
   /* Panelen / vlakken */
   --color-panel-featured: #fdeaf1;
   --color-panel-neutral: #f4f1ec;
-  --color-soft-pink: #f7f4f1;
+  --color-soft-pink: #fce4ee;
 
   /* Aliassen op bestaande klassen, zodat componenten 1-op-1 mappen ── */
   --color-teal: var(--color-brand-text); /* accent: links, koppen, badges */
