@@ -66,6 +66,9 @@ export default function ZoekenPage() {
   const [emailDone, setEmailDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  // Tijdelijk uit: de e-mail/lead-balk komt later terug. Zet op true om 'm te tonen.
+  const SHOW_EMAIL_BAR: boolean = false;
+
   function set(name: string, value: string) {
     setValues((prev) => ({ ...prev, [name]: value }));
   }
@@ -163,6 +166,7 @@ export default function ZoekenPage() {
             </button>
           </div>
 
+          {SHOW_EMAIL_BAR && (<>
           {/* Optionele e-mail (Klaviyo lead) met aanmeldknop */}
           <div className="mt-4 flex flex-col gap-3 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
             <label htmlFor="email" className="text-base text-muted">
@@ -201,6 +205,7 @@ export default function ZoekenPage() {
             sturen. We delen je gegevens nooit met derden en je kunt je op elk
             moment uitschrijven. Zie ons privacybeleid.
           </p>
+          </>)}
         </form>
 
       </div>
