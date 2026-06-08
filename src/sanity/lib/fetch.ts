@@ -8,7 +8,7 @@ const opts = { cache: "no-store" } as const;
 
 // Lokale fallback-afbeeldingen per categorie (tot er foto's via de CMS komen).
 const localCategoryImages: Record<string, string> = {
-  foundation: "/hero-foundation.png",
+  foundation: "/category-foundation.png",
 };
 
 type SanityProduct = {
