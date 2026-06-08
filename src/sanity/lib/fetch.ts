@@ -83,9 +83,9 @@ export async function getFoundations(): Promise<Product[]> {
   return data.map(mapProduct);
 }
 
-const CATEGORIES_QUERY = `*[_type == "category"]{
+const CATEGORIES_QUERY = `*[_type == "category"] | order(order asc){
   _id, name, "slug": slug.current, tagline, isLive, "image": image.asset->url
-} | order(order asc)`;
+}`;
 
 type SanityCategory = {
   name: string;
@@ -108,9 +108,9 @@ export async function getCategories(): Promise<Category[]> {
   }));
 }
 
-const REVIEWS_QUERY = `*[_type == "review"]{
+const REVIEWS_QUERY = `*[_type == "review"] | order(order asc){
   _id, name, location, rating, title, quote, date, verified, productName
-} | order(order asc)`;
+}`;
 
 type SanityReview = {
   _id: string;

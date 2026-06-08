@@ -7,7 +7,7 @@ import type { Category } from "@/data/categories";
 function CategoryCard({ c }: { c: Category }) {
   return (
     <div className="w-72 max-w-[85vw] shrink-0 snap-start overflow-hidden rounded-xl border border-line bg-white text-charcoal shadow-sm">
-      <div className="relative aspect-[5/2] bg-panel-featured">
+      <div className="relative aspect-[16/9] bg-panel-featured">
         {c.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={c.image} alt={c.name} className="h-full w-full object-cover" />
