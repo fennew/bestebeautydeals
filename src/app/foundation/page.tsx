@@ -124,7 +124,7 @@ export default async function FoundationPage() {
               Doe de zoekhulp →
             </Link>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {foundations.map((p, i) => (
               <ProductCard key={p.id} product={p} featured={i === 0} />
             ))}

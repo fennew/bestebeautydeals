@@ -20,7 +20,7 @@ export function ProductImage({
         <img
           src={product.image}
           alt={`${product.brand} ${product.name}`}
-          className="max-h-44 w-full object-contain"
+          className="h-full max-h-full w-full object-contain"
         />
       </div>
     );
@@ -32,7 +32,7 @@ export function ProductImage({
     >
       <svg
         viewBox="0 0 120 170"
-        className="h-44 w-auto"
+        className="h-full max-h-44 w-auto"
         role="img"
         aria-label={`${product.brand} ${product.name}`}
       >

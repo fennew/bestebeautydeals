@@ -31,17 +31,17 @@ export function ProductCard({
         </span>
       )}
 
-      <div className="relative px-5 pt-6">
-        {/* kortingsbadge op concurrent-kaarten */}
+      {/* Full-width fotopaneel */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-xl">
         {!featured && discountPct > 0 && (
-          <span className="absolute right-4 top-4 z-10 rounded-md bg-coral-soft px-2 py-1 text-xs font-bold text-coral-deep">
+          <span className="absolute right-3 top-3 z-10 rounded-md bg-coral-soft px-2 py-1 text-xs font-bold text-coral-deep">
             -{discountPct}%
           </span>
         )}
-        <ProductImage product={product} className="rounded-lg py-4" />
+        <ProductImage product={product} className="h-full w-full bg-soft-pink p-4" />
       </div>
 
-      <div className="flex flex-1 flex-col p-5 pt-4">
+      <div className="flex flex-1 flex-col border-t border-line p-5">
         <h3 className="font-display text-xl font-semibold leading-tight text-charcoal">
           {product.brand} — {product.name}
         </h3>

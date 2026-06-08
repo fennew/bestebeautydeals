@@ -29,6 +29,7 @@ export function ResultatenClient({
   const [maxPrice, setMaxPrice] = useState(100);
   const [skin, setSkin] = useState<SkinType | "alle">(initialSkin);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const filtered = all.filter((p) => {
     if (p.price > maxPrice) return false;
@@ -66,9 +67,31 @@ export function ResultatenClient({
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Mobiele filter-knop (balkje zoals Pricewise/Marktplaats) */}
+        <button
+          type="button"
+          onClick={() => setFiltersOpen((o) => !o)}
+          className="mb-5 flex w-full items-center justify-between rounded-xl border border-line bg-white px-4 py-3 font-medium text-charcoal shadow-sm lg:hidden"
+          aria-expanded={filtersOpen}
+        >
+          <span className="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 6h18M7 12h10M10 18h4" />
+            </svg>
+            Filteren &amp; sorteren
+          </span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${filtersOpen ? "rotate-180" : ""}`}>
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+
         <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
         {/* Filters */}
-        <aside className="h-fit rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line">
+        <aside
+          className={`h-fit rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line lg:block ${
+            filtersOpen ? "block" : "hidden"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <h2 className="font-display text-lg">Filter resultaten</h2>
             <button
