@@ -87,14 +87,14 @@ export default function ZoekenPage() {
     <div className="bg-white">
       {/* Hero met horizontale widget */}
       <section className="bg-brand bg-gradient-to-b from-transparent to-black/12">
-        <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pb-24 pt-14 text-center sm:px-6 sm:text-left lg:px-8">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
             Foundation-vergelijker
           </span>
-          <h1 className="mt-4 max-w-2xl font-display text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
-            Foundation vergelijken? Vind jouw perfecte match
+          <h1 className="mx-auto mt-4 max-w-2xl font-display text-3xl font-semibold text-white sm:mx-0 sm:text-4xl lg:text-5xl">
+            Foundation vergelijken? Vind de beste deals
           </h1>
-          <p className="mt-3 max-w-xl text-cream/80">
+          <p className="mx-auto mt-3 max-w-xl text-cream/80 sm:mx-0">
             Vul je huidprofiel in en wij tonen direct de best passende
             foundation-deals — afgestemd op jouw huid.
           </p>
