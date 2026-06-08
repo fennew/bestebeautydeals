@@ -94,9 +94,9 @@ export default function ZoekenPage() {
           <h1 className="mx-auto mt-4 max-w-2xl font-display text-3xl font-semibold text-white sm:mx-0 sm:text-4xl lg:text-5xl">
             Foundation vergelijken? Vind de beste deals
           </h1>
-          <p className="mx-auto mt-3 max-w-xl text-cream/80 sm:mx-0">
-            Vul je huidprofiel in en wij tonen direct de best passende
-            foundation-deals — afgestemd op jouw huid.
+          <p className="mx-auto mt-3 max-w-xl text-sm text-cream/80 sm:mx-0 sm:text-base">
+            Vul je huidprofiel in en zie direct de best passende deals voor
+            jouw huid.
           </p>
         </div>
       </section>
@@ -106,7 +106,7 @@ export default function ZoekenPage() {
           onSubmit={handleSubmit}
           className="rounded-3xl bg-white p-5 shadow-lg ring-1 ring-line sm:p-6"
         >
-          <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[0.8fr_0.8fr_1.9fr_1.25fr_auto]">
             {fields.map((f) => (
               <label key={f.name} className="block">
                 <span className="text-sm font-semibold text-charcoal">
@@ -135,7 +135,7 @@ export default function ZoekenPage() {
                 type="text"
                 value={values.currentBrand ?? ""}
                 onChange={(e) => set("currentBrand", e.target.value)}
-                placeholder="Bijv. MAY, L'Oréal, MAC…"
+                placeholder="Optioneel — bijv. MAY, L'Oréal of geen"
                 className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-3 text-charcoal outline-none focus:border-teal"
               />
             </label>
