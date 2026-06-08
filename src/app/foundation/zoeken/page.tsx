@@ -5,8 +5,19 @@ import { useRouter } from "next/navigation";
 import { MultiSelect } from "@/components/MultiSelect";
 import { TrustBar } from "@/components/TrustBar";
 
-// Native single-select velden.
+// Native single-select velden (volgorde = weergavevolgorde: leeftijd eerst).
 const fields = [
+  {
+    name: "age",
+    label: "Leeftijd",
+    options: [
+      ["<30", "Jonger dan 30"],
+      ["30-39", "30 – 39 jaar"],
+      ["40-49", "40 – 49 jaar"],
+      ["50-59", "50 – 59 jaar"],
+      ["60+", "60 jaar en ouder"],
+    ],
+  },
   {
     name: "skin",
     label: "Huidtype",
@@ -16,34 +27,6 @@ const fields = [
       ["normaal", "Normaal"],
       ["gevoelig", "Gevoelig"],
       ["gemengd", "Gemengd"],
-    ],
-  },
-  {
-    name: "age",
-    label: "Leeftijd",
-    options: [
-      ["<40", "Jonger dan 40"],
-      ["40-49", "40 – 49 jaar"],
-      ["50-59", "50 – 59 jaar"],
-      ["60+", "60 jaar en ouder"],
-    ],
-  },
-  {
-    // Merkenlijst (door elkaar) — later beheerbaar via de CMS.
-    name: "currentBrand",
-    label: "Welke foundation gebruik je nu?",
-    options: [
-      ["geen", "Ik gebruik geen foundation"],
-      ["maybelline", "Maybelline"],
-      ["esteelauder", "Estée Lauder"],
-      ["loreal", "L'Oréal"],
-      ["mac", "MAC"],
-      ["catrice", "Catrice"],
-      ["may", "MAY Cosmetics"],
-      ["rimmel", "Rimmel"],
-      ["clinique", "Clinique"],
-      ["maxfactor", "Max Factor"],
-      ["anders", "Een ander merk"],
     ],
   },
 ] as const;
@@ -143,6 +126,19 @@ export default function ZoekenPage() {
                 </select>
               </label>
             ))}
+
+            <label className="block">
+              <span className="text-sm font-semibold text-charcoal">
+                Welk foundationmerk gebruik je nu?
+              </span>
+              <input
+                type="text"
+                value={values.currentBrand ?? ""}
+                onChange={(e) => set("currentBrand", e.target.value)}
+                placeholder="Bijv. MAY, L'Oréal, MAC…"
+                className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-3 text-charcoal outline-none focus:border-teal"
+              />
+            </label>
 
             <label className="block">
               <span className="text-sm font-semibold text-charcoal">
