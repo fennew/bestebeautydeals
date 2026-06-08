@@ -1,4 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
+
+/** Snelheid van de mobiele auto-carrousel (ms tussen slides). Pas hier aan. */
+const SLIDE_INTERVAL_MS = 3500;
 
 const icons = {
   tag: (
@@ -51,42 +57,88 @@ const vergelijkerItems: Item[] = [
   { title: "9,3", sub: "gemiddelde klantwaardering", icon: icons.thumbs },
 ];
 
+function UspItem({ item }: { item: Item }) {
+  return (
+    <div className="flex flex-col items-center text-center">
+      <svg
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="var(--color-teal)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {item.icon}
+      </svg>
+      <p className="mt-4 font-display text-lg font-semibold leading-tight text-teal">
+        {item.title}
+      </p>
+      <p className="mt-0.5 text-sm text-muted">{item.sub}</p>
+    </div>
+  );
+}
+
 export function TrustBar({
   variant = "default",
 }: {
   variant?: "default" | "vergelijker";
 }) {
   const items = variant === "vergelijker" ? vergelijkerItems : defaultItems;
+  const [index, setIndex] = useState(0);
+
+  // Mobiele carrousel: automatisch doorschuiven, oneindig herhalend.
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % items.length);
+    }, SLIDE_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [items.length]);
+
   return (
     <section className="border-y border-line bg-soft-pink">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <h2 className="text-center font-display text-2xl font-semibold tracking-tight text-teal">
           Jij verdient de beste deal
         </h2>
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+
+        {/* Tablet/desktop: vast grid */}
+        <div className="mt-10 hidden gap-8 sm:grid sm:grid-cols-2 lg:grid-cols-4">
           {items.map((item) => (
-            <div
-              key={item.title}
-              className="flex flex-col items-center text-center"
-            >
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-teal)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                {item.icon}
-              </svg>
-              <p className="mt-4 font-display text-lg font-semibold leading-tight text-teal">
-                {item.title}
-              </p>
-              <p className="mt-0.5 text-sm text-muted">{item.sub}</p>
-            </div>
+            <UspItem key={item.title} item={item} />
           ))}
+        </div>
+
+        {/* Mobiel: auto-slidende carrousel zonder pijltjes */}
+        <div className="mt-10 sm:hidden">
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${index * 100}%)` }}
+            >
+              {items.map((item) => (
+                <div key={item.title} className="w-full shrink-0">
+                  <UspItem item={item} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Positie-indicator (dots) */}
+          <div className="mt-6 flex justify-center gap-2">
+            {items.map((item, i) => (
+              <button
+                key={item.title}
+                type="button"
+                aria-label={`Toon: ${item.title}`}
+                onClick={() => setIndex(i)}
+                className={`h-2 rounded-full transition-all ${
+                  i === index ? "w-5 bg-teal" : "w-2 bg-teal/30"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
