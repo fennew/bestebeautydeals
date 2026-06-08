@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <g transform="rotate(-28 50 50)">
+    <path d="M50 14 C55 14 58 16 62 20 L67 25 C70 28 71 30 71 35 L71 78 C71 83 67 86 62 86 L38 86 C33 86 29 83 29 78 L29 35 C29 30 30 28 33 25 L38 20 C42 16 45 14 50 14 Z" fill="#e84b7c"/>
+    <circle cx="50" cy="31" r="5.5" fill="#ffffff"/>
+  </g>
+  <text x="52" y="54" text-anchor="middle" dominant-baseline="central" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="30" fill="#ffffff">%</text>
+</svg>
