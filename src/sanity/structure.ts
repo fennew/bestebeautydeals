@@ -6,6 +6,7 @@ import {
   StarIcon,
   DocumentTextIcon,
   CogIcon,
+  SearchIcon,
 } from "@sanity/icons";
 
 // Nederlandse, overzichtelijke zijbalk voor het team.
@@ -23,6 +24,12 @@ export const structure: StructureResolver = (S) =>
         .title("Artikelen / gidsen")
         .icon(DocumentTextIcon),
       S.divider(),
+      S.listItem()
+        .title("Vergelijk-pagina")
+        .icon(SearchIcon)
+        .child(
+          S.document().schemaType("comparePage").documentId("comparePage"),
+        ),
       S.listItem()
         .title("Site-instellingen")
         .icon(CogIcon)

@@ -108,6 +108,33 @@ export async function getCategories(): Promise<Category[]> {
   }));
 }
 
+const COMPARE_PAGE_QUERY = `*[_type == "comparePage"][0]{
+  eyebrow, title, subtitle, submitLabel
+}`;
+
+export type ComparePageContent = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  submitLabel: string;
+};
+
+export async function getComparePage(): Promise<ComparePageContent> {
+  const data = await client.fetch<Partial<ComparePageContent> | null>(
+    COMPARE_PAGE_QUERY,
+    {},
+    opts,
+  );
+  return {
+    eyebrow: data?.eyebrow ?? "Foundation-vergelijker",
+    title: data?.title ?? "Foundation vergelijken? Vind de beste deal voor jou",
+    subtitle:
+      data?.subtitle ??
+      "Vul je huidprofiel in en wij tonen direct de best passende foundation-deals — afgestemd op jouw huid.",
+    submitLabel: data?.submitLabel ?? "Vergelijk",
+  };
+}
+
 const REVIEWS_QUERY = `*[_type == "review"] | order(order asc){
   _id, name, location, rating, title, quote, date, verified, productName
 }`;
