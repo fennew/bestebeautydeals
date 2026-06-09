@@ -1,4 +1,5 @@
 import { DealRow } from "@/components/DealRow";
+import { TrustBar } from "@/components/TrustBar";
 import type { Product } from "@/data/types";
 import type { ResultsPageContent } from "@/sanity/lib/fetch";
 
@@ -9,16 +10,19 @@ export function ResultatenClient({
   products: Product[];
   content: ResultsPageContent;
 }) {
+  const count = String(products.length);
+  const fill = (s: string) => s.replace("{count}", count);
+
   return (
     <>
       {/* Gecentreerde titel-band */}
       <section className="bg-brand bg-gradient-to-b from-transparent to-black/12 text-cream">
         <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            {content.title}
+            {fill(content.title)}
           </h1>
           <p className="mx-auto mt-2 max-w-2xl text-cream/80">
-            {content.subtitle.replace("{count}", String(products.length))}
+            {fill(content.subtitle)}
           </p>
         </div>
       </section>
@@ -38,6 +42,9 @@ export function ResultatenClient({
           </div>
         )}
       </div>
+
+      {/* USP's onderaan */}
+      <TrustBar variant="vergelijker" />
     </>
   );
 }
