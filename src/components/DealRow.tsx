@@ -95,9 +95,11 @@ export function DealRow({
               <span className="font-display text-2xl font-semibold leading-tight text-charcoal">
                 {formatPrice(product.price)}
               </span>
-              <span className="text-sm text-muted line-through">
-                {formatPrice(original)}
-              </span>
+              {product.savings > 0 && (
+                <span className="text-sm text-muted line-through">
+                  {formatPrice(original)}
+                </span>
+              )}
             </div>
           </div>
           <a

@@ -56,13 +56,17 @@ export function ProductCard({
               <span className="font-display text-2xl font-semibold text-charcoal">
                 {formatPrice(product.price)}
               </span>
-              <span className="text-sm text-muted line-through">
-                {formatPrice(original)}
-              </span>
+              {product.savings > 0 && (
+                <span className="text-sm text-muted line-through">
+                  {formatPrice(original)}
+                </span>
+              )}
             </div>
-            <span className="text-xs font-medium text-teal">
-              gem. €{product.savings} goedkoper
-            </span>
+            {product.savings > 0 && (
+              <span className="text-xs font-medium text-teal">
+                gem. €{product.savings} goedkoper
+              </span>
+            )}
           </div>
         </div>
 
