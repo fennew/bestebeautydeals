@@ -26,7 +26,7 @@ export default async function ZoekenPage() {
         </div>
       </section>
 
-      <ZoekenForm submitLabel={content.submitLabel} />
+      <ZoekenForm content={content} />
 
       {/* Garanties onder de vergelijker */}
       <div className="mt-14">

@@ -108,16 +108,79 @@ export async function getCategories(): Promise<Category[]> {
   }));
 }
 
-const COMPARE_PAGE_QUERY = `*[_type == "comparePage"][0]{
-  eyebrow, title, subtitle, submitLabel
-}`;
+export type SelectOption = { value: string; label: string };
 
 export type ComparePageContent = {
   eyebrow: string;
   title: string;
   subtitle: string;
   submitLabel: string;
+  selectPlaceholder: string;
+  ageLabel: string;
+  ageOptions: SelectOption[];
+  skinLabel: string;
+  skinOptions: SelectOption[];
+  brandLabel: string;
+  brandOptional: string;
+  brandPlaceholder: string;
+  concernLabel: string;
+  concernOptions: SelectOption[];
 };
+
+const COMPARE_PAGE_QUERY = `*[_type == "comparePage"][0]{
+  eyebrow, title, subtitle, submitLabel, selectPlaceholder,
+  ageLabel, ageOptions[]{value, label},
+  skinLabel, skinOptions[]{value, label},
+  brandLabel, brandOptional, brandPlaceholder,
+  concernLabel, concernOptions[]{value, label}
+}`;
+
+const DEFAULT_COMPARE_PAGE: ComparePageContent = {
+  eyebrow: "Foundation-vergelijker",
+  title: "Foundation vergelijken? Vind de beste deal voor jou",
+  subtitle:
+    "Vul je huidprofiel in en wij tonen direct de best passende foundation-deals — afgestemd op jouw huid.",
+  submitLabel: "Vergelijk",
+  selectPlaceholder: "Selecteer",
+  ageLabel: "Leeftijd",
+  ageOptions: [
+    { value: "<30", label: "Jonger dan 30" },
+    { value: "30-39", label: "30 – 39 jaar" },
+    { value: "40-49", label: "40 – 49 jaar" },
+    { value: "50-59", label: "50 – 59 jaar" },
+    { value: "60+", label: "60 jaar en ouder" },
+  ],
+  skinLabel: "Huidtype",
+  skinOptions: [
+    { value: "droog", label: "Droog" },
+    { value: "vet", label: "Vet" },
+    { value: "normaal", label: "Normaal" },
+    { value: "gevoelig", label: "Gevoelig" },
+    { value: "gemengd", label: "Gemengd" },
+  ],
+  brandLabel: "Welk foundationmerk gebruik je nu?",
+  brandOptional: "(optioneel)",
+  brandPlaceholder: "Bijv. L'Oréal, Maybelline, MAC",
+  concernLabel: "Wat moet je foundation dekken?",
+  concernOptions: [
+    { value: "lijntjes", label: "Fijne lijntjes en rimpels" },
+    { value: "pigment", label: "Ouderdomsvlekken en ongelijkmatige toon" },
+    { value: "droogte", label: "Droogte en ruwe textuur" },
+    { value: "verslapping", label: "Verslapping van de huid" },
+    { value: "porien", label: "Grote poriën" },
+    { value: "acne", label: "Acne en puistjes" },
+    { value: "roodheid", label: "Roodheid en irritatie" },
+  ],
+};
+
+function optionsOr(
+  arr: SelectOption[] | undefined | null,
+  fallback: SelectOption[],
+): SelectOption[] {
+  return Array.isArray(arr) && arr.length > 0
+    ? arr.filter((o) => o?.value && o?.label).map((o) => ({ value: o.value, label: o.label }))
+    : fallback;
+}
 
 export async function getComparePage(): Promise<ComparePageContent> {
   const data = await client.fetch<Partial<ComparePageContent> | null>(
@@ -125,13 +188,22 @@ export async function getComparePage(): Promise<ComparePageContent> {
     {},
     opts,
   );
+  const d = DEFAULT_COMPARE_PAGE;
   return {
-    eyebrow: data?.eyebrow ?? "Foundation-vergelijker",
-    title: data?.title ?? "Foundation vergelijken? Vind de beste deal voor jou",
-    subtitle:
-      data?.subtitle ??
-      "Vul je huidprofiel in en wij tonen direct de best passende foundation-deals — afgestemd op jouw huid.",
-    submitLabel: data?.submitLabel ?? "Vergelijk",
+    eyebrow: data?.eyebrow ?? d.eyebrow,
+    title: data?.title ?? d.title,
+    subtitle: data?.subtitle ?? d.subtitle,
+    submitLabel: data?.submitLabel ?? d.submitLabel,
+    selectPlaceholder: data?.selectPlaceholder ?? d.selectPlaceholder,
+    ageLabel: data?.ageLabel ?? d.ageLabel,
+    ageOptions: optionsOr(data?.ageOptions, d.ageOptions),
+    skinLabel: data?.skinLabel ?? d.skinLabel,
+    skinOptions: optionsOr(data?.skinOptions, d.skinOptions),
+    brandLabel: data?.brandLabel ?? d.brandLabel,
+    brandOptional: data?.brandOptional ?? d.brandOptional,
+    brandPlaceholder: data?.brandPlaceholder ?? d.brandPlaceholder,
+    concernLabel: data?.concernLabel ?? d.concernLabel,
+    concernOptions: optionsOr(data?.concernOptions, d.concernOptions),
   };
 }
 

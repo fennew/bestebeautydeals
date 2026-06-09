@@ -3,44 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { MultiSelect } from "@/components/MultiSelect";
+import type { ComparePageContent } from "@/sanity/lib/fetch";
 
-// Native single-select velden (volgorde = weergavevolgorde: leeftijd eerst).
-const fields = [
-  {
-    name: "age",
-    label: "Leeftijd",
-    options: [
-      ["<30", "Jonger dan 30"],
-      ["30-39", "30 – 39 jaar"],
-      ["40-49", "40 – 49 jaar"],
-      ["50-59", "50 – 59 jaar"],
-      ["60+", "60 jaar en ouder"],
-    ],
-  },
-  {
-    name: "skin",
-    label: "Huidtype",
-    options: [
-      ["droog", "Droog"],
-      ["vet", "Vet"],
-      ["normaal", "Normaal"],
-      ["gevoelig", "Gevoelig"],
-      ["gemengd", "Gemengd"],
-    ],
-  },
-] as const;
-
-const concernOptions = [
-  { value: "lijntjes", label: "Fijne lijntjes en rimpels" },
-  { value: "pigment", label: "Ouderdomsvlekken en ongelijkmatige toon" },
-  { value: "droogte", label: "Droogte en ruwe textuur" },
-  { value: "verslapping", label: "Verslapping van de huid" },
-  { value: "porien", label: "Grote poriën" },
-  { value: "acne", label: "Acne en puistjes" },
-  { value: "roodheid", label: "Roodheid en irritatie" },
-];
-
-export function ZoekenForm({ submitLabel = "Vergelijk" }: { submitLabel?: string }) {
+export function ZoekenForm({ content }: { content: ComparePageContent }) {
   const router = useRouter();
   const [values, setValues] = useState<Record<string, string>>({});
   const [concerns, setConcerns] = useState<string[]>([]);
@@ -50,6 +15,12 @@ export function ZoekenForm({ submitLabel = "Vergelijk" }: { submitLabel?: string
 
   // Tijdelijk uit: de e-mail/lead-balk komt later terug. Zet op true om 'm te tonen.
   const SHOW_EMAIL_BAR: boolean = false;
+
+  // Keuzevelden (volgorde = weergavevolgorde: leeftijd eerst). Inhoud uit Sanity.
+  const fields = [
+    { name: "age", label: content.ageLabel, options: content.ageOptions },
+    { name: "skin", label: content.skinLabel, options: content.skinOptions },
+  ];
 
   function set(name: string, value: string) {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -99,10 +70,10 @@ export function ZoekenForm({ submitLabel = "Vergelijk" }: { submitLabel?: string
                 onChange={(e) => set(f.name, e.target.value)}
                 className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-3 text-charcoal outline-none focus:border-teal"
               >
-                <option value="">Selecteer</option>
-                {f.options.map(([val, lbl]) => (
-                  <option key={val} value={val}>
-                    {lbl}
+                <option value="">{content.selectPlaceholder}</option>
+                {f.options.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
                   </option>
                 ))}
               </select>
@@ -111,25 +82,32 @@ export function ZoekenForm({ submitLabel = "Vergelijk" }: { submitLabel?: string
 
           <label className="block">
             <span className="text-sm font-semibold text-charcoal">
-              Welk foundationmerk gebruik je nu?{" "}
-              <span className="font-normal text-muted">(optioneel)</span>
+              {content.brandLabel}
+              {content.brandOptional && (
+                <>
+                  {" "}
+                  <span className="font-normal text-muted">
+                    {content.brandOptional}
+                  </span>
+                </>
+              )}
             </span>
             <input
               type="text"
               value={values.currentBrand ?? ""}
               onChange={(e) => set("currentBrand", e.target.value)}
-              placeholder="Bijv. L'Oréal, Maybelline, MAC"
+              placeholder={content.brandPlaceholder}
               className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-3 text-charcoal outline-none focus:border-teal"
             />
           </label>
 
           <label className="block">
             <span className="text-sm font-semibold text-charcoal">
-              Wat moet je foundation dekken?
+              {content.concernLabel}
             </span>
             <div className="mt-1.5">
               <MultiSelect
-                options={concernOptions}
+                options={content.concernOptions}
                 value={concerns}
                 onChange={setConcerns}
               />
@@ -141,7 +119,7 @@ export function ZoekenForm({ submitLabel = "Vergelijk" }: { submitLabel?: string
             disabled={submitting}
             className="h-[50px] rounded-xl bg-coral px-5 font-semibold text-white transition-colors hover:bg-coral-dark disabled:opacity-60"
           >
-            {submitting ? "Zoeken…" : submitLabel}
+            {submitting ? "Zoeken…" : content.submitLabel}
           </button>
         </div>
 
