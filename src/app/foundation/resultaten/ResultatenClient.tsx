@@ -4,36 +4,35 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { DealRow } from "@/components/DealRow";
 import type { Product, SkinType } from "@/data/types";
-
-const skinOptions: { value: SkinType | "alle"; label: string }[] = [
-  { value: "alle", label: "Alle huidtypes" },
-  { value: "droog", label: "Droge huid" },
-  { value: "vet", label: "Vette huid" },
-  { value: "gevoelig", label: "Gevoelige huid" },
-  { value: "gemengd", label: "Gemengde huid" },
-];
+import type { ResultsPageContent } from "@/sanity/lib/fetch";
 
 export function ResultatenClient({
   products,
   brands,
+  content,
 }: {
   products: Product[];
   brands: { id: string; name: string }[];
+  content: ResultsPageContent;
 }) {
   const params = useSearchParams();
-  const initialSkin = (params.get("skin") as SkinType | null) ?? "alle";
+  const skinOptions = content.skinOptions;
+  // De eerste optie geldt als 'toon alles' (geen huidtype-filter).
+  const allValue = skinOptions[0]?.value ?? "alle";
+  const initialSkin = params.get("skin") ?? allValue;
 
   const all = products;
   const foundationBrands = brands;
 
   const [maxPrice, setMaxPrice] = useState(100);
-  const [skin, setSkin] = useState<SkinType | "alle">(initialSkin);
+  const [skin, setSkin] = useState<string>(initialSkin);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const filtered = all.filter((p) => {
     if (p.price > maxPrice) return false;
-    if (skin !== "alle" && !p.skinTypes.includes(skin)) return false;
+    if (skin !== allValue && !p.skinTypes.includes(skin as SkinType))
+      return false;
     if (selectedBrands.length > 0 && !selectedBrands.includes(p.brandId))
       return false;
     return true;
@@ -47,7 +46,7 @@ export function ResultatenClient({
 
   function reset() {
     setMaxPrice(100);
-    setSkin("alle");
+    setSkin(allValue);
     setSelectedBrands([]);
   }
 
@@ -57,11 +56,10 @@ export function ResultatenClient({
       <section className="bg-brand bg-gradient-to-b from-transparent to-black/12 text-cream">
         <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8">
           <h1 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Dit zijn jouw beste foundation-deals
+            {content.title}
           </h1>
           <p className="mt-2 text-cream/80">
-            {filtered.length} resultaten — onze keuze staat bovenaan, afgestemd
-            op jouw huidprofiel.
+            {content.subtitle.replace("{count}", String(filtered.length))}
           </p>
         </div>
       </section>
@@ -78,7 +76,7 @@ export function ResultatenClient({
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 6h18M7 12h10M10 18h4" />
             </svg>
-            Filteren &amp; sorteren
+            {content.mobileFilterLabel}
           </span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${filtersOpen ? "rotate-180" : ""}`}>
             <path d="m6 9 6 6 6-6" />
@@ -93,18 +91,18 @@ export function ResultatenClient({
           }`}
         >
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg">Filter resultaten</h2>
+            <h2 className="font-display text-lg">{content.filterTitle}</h2>
             <button
               onClick={reset}
               className="text-sm font-medium text-teal hover:underline"
             >
-              Wissen
+              {content.clearLabel}
             </button>
           </div>
 
           {/* Prijs */}
           <div className="mt-6">
-            <p className="text-sm font-semibold">Prijs</p>
+            <p className="text-sm font-semibold">{content.priceLabel}</p>
             <div className="mt-2 flex justify-between text-sm text-muted">
               <span>€10</span>
               <span>€{maxPrice}</span>
@@ -121,7 +119,7 @@ export function ResultatenClient({
 
           {/* Merk */}
           <div className="mt-6">
-            <p className="text-sm font-semibold">Merk</p>
+            <p className="text-sm font-semibold">{content.brandLabel}</p>
             <div className="mt-2 space-y-2">
               {foundationBrands.map((b) => (
                 <label key={b.id} className="flex items-center gap-2 text-sm">
@@ -139,7 +137,7 @@ export function ResultatenClient({
 
           {/* Huidtype */}
           <div className="mt-6">
-            <p className="text-sm font-semibold">Huidtype</p>
+            <p className="text-sm font-semibold">{content.skinLabel}</p>
             <div className="mt-2 space-y-2">
               {skinOptions.map((o) => (
                 <label key={o.value} className="flex items-center gap-2 text-sm">
@@ -166,15 +164,13 @@ export function ResultatenClient({
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center rounded-2xl bg-white p-12 text-center ring-1 ring-line">
-            <p className="font-display text-xl">Geen deals gevonden</p>
-            <p className="mt-2 text-muted">
-              Pas je filters aan om meer foundations te zien.
-            </p>
+            <p className="font-display text-xl">{content.emptyTitle}</p>
+            <p className="mt-2 text-muted">{content.emptyText}</p>
             <button
               onClick={reset}
               className="mt-4 rounded-xl bg-teal px-5 py-2.5 font-semibold text-cream"
             >
-              Filters wissen
+              {content.emptyButtonLabel}
             </button>
           </div>
         )}

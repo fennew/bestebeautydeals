@@ -207,6 +207,72 @@ export async function getComparePage(): Promise<ComparePageContent> {
   };
 }
 
+export type ResultsPageContent = {
+  title: string;
+  subtitle: string;
+  mobileFilterLabel: string;
+  filterTitle: string;
+  clearLabel: string;
+  priceLabel: string;
+  brandLabel: string;
+  skinLabel: string;
+  skinOptions: SelectOption[];
+  emptyTitle: string;
+  emptyText: string;
+  emptyButtonLabel: string;
+};
+
+const RESULTS_PAGE_QUERY = `*[_type == "resultsPage"][0]{
+  title, subtitle, mobileFilterLabel, filterTitle, clearLabel, priceLabel,
+  brandLabel, skinLabel, skinOptions[]{value, label},
+  emptyTitle, emptyText, emptyButtonLabel
+}`;
+
+const DEFAULT_RESULTS_PAGE: ResultsPageContent = {
+  title: "Dit zijn jouw beste foundation-deals",
+  subtitle:
+    "{count} resultaten — onze keuze staat bovenaan, afgestemd op jouw huidprofiel.",
+  mobileFilterLabel: "Filteren & sorteren",
+  filterTitle: "Filter resultaten",
+  clearLabel: "Wissen",
+  priceLabel: "Prijs",
+  brandLabel: "Merk",
+  skinLabel: "Huidtype",
+  skinOptions: [
+    { value: "alle", label: "Alle huidtypes" },
+    { value: "droog", label: "Droge huid" },
+    { value: "vet", label: "Vette huid" },
+    { value: "gevoelig", label: "Gevoelige huid" },
+    { value: "gemengd", label: "Gemengde huid" },
+  ],
+  emptyTitle: "Geen deals gevonden",
+  emptyText: "Pas je filters aan om meer foundations te zien.",
+  emptyButtonLabel: "Filters wissen",
+};
+
+export async function getResultsPage(): Promise<ResultsPageContent> {
+  const data = await client.fetch<Partial<ResultsPageContent> | null>(
+    RESULTS_PAGE_QUERY,
+    {},
+    opts,
+  );
+  const d = DEFAULT_RESULTS_PAGE;
+  return {
+    title: data?.title ?? d.title,
+    subtitle: data?.subtitle ?? d.subtitle,
+    mobileFilterLabel: data?.mobileFilterLabel ?? d.mobileFilterLabel,
+    filterTitle: data?.filterTitle ?? d.filterTitle,
+    clearLabel: data?.clearLabel ?? d.clearLabel,
+    priceLabel: data?.priceLabel ?? d.priceLabel,
+    brandLabel: data?.brandLabel ?? d.brandLabel,
+    skinLabel: data?.skinLabel ?? d.skinLabel,
+    skinOptions: optionsOr(data?.skinOptions, d.skinOptions),
+    emptyTitle: data?.emptyTitle ?? d.emptyTitle,
+    emptyText: data?.emptyText ?? d.emptyText,
+    emptyButtonLabel: data?.emptyButtonLabel ?? d.emptyButtonLabel,
+  };
+}
+
 const REVIEWS_QUERY = `*[_type == "review"] | order(order asc){
   _id, name, location, rating, title, quote, date, verified, productName
 }`;

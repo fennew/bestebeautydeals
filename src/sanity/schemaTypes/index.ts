@@ -7,7 +7,8 @@ import { review } from "./review";
 import { article } from "./article";
 import { siteSettings } from "./siteSettings";
 import { comparePage } from "./comparePage";
+import { resultsPage } from "./resultsPage";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [category, product, rankingPage, review, article, siteSettings, comparePage],
+  types: [category, product, rankingPage, review, article, siteSettings, comparePage, resultsPage],
 };
