@@ -12,14 +12,34 @@ const inter = Inter({
   display: "swap",
 });
 
+const SITE_URL = "https://www.bestebeautydeals.nl";
+const SITE_TITLE =
+  "Beste Beauty Deals — Vergelijk en vind jouw perfecte beautyproduct";
+const SITE_DESCRIPTION =
+  "Vergelijk de beste foundations, mascara's en meer op prijs, kwaliteit en reviews. Vind altijd de deal die bij jouw huid past.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bestebeautydeals.nl"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Beste Beauty Deals — Vergelijk en vind jouw perfecte beautyproduct",
+    default: SITE_TITLE,
     template: "%s | Beste Beauty Deals",
   },
-  description:
-    "Vergelijk de beste foundations, mascara's en meer op prijs, kwaliteit en reviews. Vind altijd de deal die bij jouw huid past.",
+  description: SITE_DESCRIPTION,
+  applicationName: "Beste Beauty Deals",
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "nl_NL",
+    url: SITE_URL,
+    siteName: "Beste Beauty Deals",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
