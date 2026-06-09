@@ -24,6 +24,24 @@ function Check() {
   );
 }
 
+function Cross() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-con)"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="mt-0.5 shrink-0"
+    >
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  );
+}
+
 export function DealRow({
   product,
   rank,
@@ -33,7 +51,8 @@ export function DealRow({
   rank: number;
   featured?: boolean;
 }) {
-  const usps = product.pros.slice(0, 4);
+  const usps = product.pros.map((p) => p.trim()).filter(Boolean).slice(0, 4);
+  const cons = product.cons.map((c) => c.trim()).filter(Boolean).slice(0, 3);
   const original = product.price + product.savings;
 
   return (
@@ -81,6 +100,12 @@ export function DealRow({
               <span>{u}</span>
             </li>
           ))}
+            {cons.map((c) => (
+              <li key={c} className="flex gap-2 text-sm text-muted">
+                <Cross />
+                <span>{c}</span>
+              </li>
+            ))}
             <li className="pt-1">
               <StarRating rating={product.rating} />
             </li>
