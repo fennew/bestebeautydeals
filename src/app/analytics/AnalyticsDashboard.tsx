@@ -5,6 +5,23 @@ function pct(n: number, d: number) {
   return Math.round((n / d) * 100) + "%";
 }
 
+const PATH_LABELS: Record<string, string> = {
+  "/": "Home",
+  "/foundation": "Foundation-pagina",
+  "/foundation/zoeken": "Vergelijk-pagina",
+  "/foundation/resultaten": "Resultaten-pagina",
+  "/over-ons": "Over ons",
+  "/mascara": "Mascara",
+  "/blush": "Blush",
+  "/concealer": "Concealer",
+  "/lippen": "Lippen",
+  "/huidverzorging": "Huidverzorging",
+};
+
+function pageLabel(path: string) {
+  return PATH_LABELS[path] ?? path;
+}
+
 function StatCard({
   label,
   value,
@@ -54,6 +71,60 @@ function BarList({ title, items }: { title: string; items: Bucket[] }) {
           ))}
         </ul>
       )}
+    </div>
+  );
+}
+
+function FunnelCard({ funnel }: { funnel: AnalyticsData["funnel"] }) {
+  const steps = [
+    { label: "Vergelijk-pagina", count: funnel.vergelijkViews },
+    { label: "Quiz ingevuld", count: funnel.quizSubmits },
+    { label: "Resultaten-pagina", count: funnel.resultatenViews },
+    { label: "Deal geklikt", count: funnel.dealClicks },
+  ];
+  const top = Math.max(1, steps[0].count);
+  const endConv = steps[0].count > 0
+    ? Math.round((steps[3].count / steps[0].count) * 100)
+    : 0;
+
+  return (
+    <div className="rounded-2xl border border-line bg-white p-5 shadow-sm">
+      <h3 className="font-display text-lg font-semibold text-charcoal">
+        Funnel — vergelijker → deal
+      </h3>
+      <ul className="mt-4">
+        {steps.map((s, i) => {
+          const prev = i > 0 ? steps[i - 1].count : null;
+          const conv = prev !== null && prev > 0
+            ? Math.round((s.count / prev) * 100)
+            : prev === null
+              ? null
+              : 0;
+          return (
+            <li key={s.label}>
+              {i > 0 && (
+                <div className="py-1 text-center text-xs text-muted">
+                  ↓ {conv}% door · {100 - (conv ?? 0)}% drop-off
+                </div>
+              )}
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium text-charcoal">{s.label}</span>
+                <span className="text-muted">{s.count}</span>
+              </div>
+              <div className="mt-1 h-3 w-full overflow-hidden rounded-full bg-panel-featured">
+                <div
+                  className="h-full rounded-full bg-coral"
+                  style={{ width: `${(s.count / top) * 100}%` }}
+                />
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mt-3 text-xs text-muted">
+        Eindconversie: {endConv}% van de vergelijk-bezoekers klikt uiteindelijk
+        een deal. (Unieke bezoekers.)
+      </p>
     </div>
   );
 }
@@ -129,7 +200,10 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
           <h1 className="font-display text-2xl font-semibold text-charcoal">
             Analytics
           </h1>
-          <p className="text-sm text-muted">Laatste {data.days} dagen</p>
+          <p className="text-sm text-muted">
+            Laatste {data.days} dagen · unieke bezoekers (refreshes tellen niet
+            dubbel)
+          </p>
         </div>
         <a
           href="/api/analytics-logout"
@@ -140,7 +214,7 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Pageviews" value={overview.pageviews} />
+        <StatCard label="Unieke bezoekers" value={overview.visitors} />
         <StatCard label="Quiz-invullingen" value={overview.quizSubmits} />
         <StatCard label="Deal-kliks" value={overview.dealClicks} />
         <StatCard
@@ -151,6 +225,17 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        <FunnelCard funnel={data.funnel} />
+        <BarList
+          title="Bezoekers per pagina"
+          items={data.pagesByPath.map((p) => ({
+            label: pageLabel(p.path),
+            count: p.count,
+          }))}
+        />
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <BarList title="Leeftijd" items={data.distributions.age} />
         <BarList title="Huidtype" items={data.distributions.skin} />
         <BarList title="Huidig foundationmerk" items={data.distributions.brand} />

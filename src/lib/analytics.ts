@@ -24,7 +24,9 @@ export type Bucket = { label: string; count: number };
 
 export type AnalyticsData = {
   days: number;
-  overview: { pageviews: number; quizSubmits: number; dealClicks: number };
+  // Alle tellingen zijn unieke bezoekers (vid) — refreshes/herhaalbezoeken
+  // tellen niet dubbel.
+  overview: { visitors: number; quizSubmits: number; dealClicks: number };
   distributions: {
     age: Bucket[];
     skin: Bucket[];
@@ -33,6 +35,13 @@ export type AnalyticsData = {
   };
   submitsByDay: { day: string; count: number }[];
   dealClicks: { label: string; count: number; linked: boolean }[];
+  pagesByPath: { path: string; count: number }[];
+  funnel: {
+    vergelijkViews: number;
+    quizSubmits: number;
+    resultatenViews: number;
+    dealClicks: number;
+  };
 };
 
 export async function getAnalytics(days = 30): Promise<AnalyticsData | null> {
