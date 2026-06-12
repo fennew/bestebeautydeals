@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import type { AnalyticsData, Bucket } from "@/lib/analytics";
+import { DateRangePicker } from "./DateRangePicker";
 
 function pct(n: number, d: number) {
   if (!d) return "0%";
@@ -171,7 +173,13 @@ function DealClicksCard({
   );
 }
 
-export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
+export function AnalyticsDashboard({
+  data,
+  rangeLabel,
+}: {
+  data: AnalyticsData | null;
+  rangeLabel: string;
+}) {
   if (!data) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center">
@@ -201,8 +209,7 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
             Analytics
           </h1>
           <p className="text-sm text-muted">
-            Laatste {data.days} dagen · unieke bezoekers (refreshes tellen niet
-            dubbel)
+            {rangeLabel} · unieke bezoekers (refreshes tellen niet dubbel)
           </p>
         </div>
         <a
@@ -212,6 +219,10 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
           Uitloggen
         </a>
       </div>
+
+      <Suspense fallback={null}>
+        <DateRangePicker />
+      </Suspense>
 
       <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard label="Unieke bezoekers" value={overview.visitors} />

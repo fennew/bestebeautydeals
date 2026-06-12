@@ -23,7 +23,6 @@ export async function trackEvent(
 export type Bucket = { label: string; count: number };
 
 export type AnalyticsData = {
-  days: number;
   // Alle tellingen zijn unieke bezoekers (vid) — refreshes/herhaalbezoeken
   // tellen niet dubbel.
   overview: { visitors: number; quizSubmits: number; dealClicks: number };
@@ -44,9 +43,15 @@ export type AnalyticsData = {
   };
 };
 
-export async function getAnalytics(days = 30): Promise<AnalyticsData | null> {
+export async function getAnalytics(
+  from: Date,
+  to: Date,
+): Promise<AnalyticsData | null> {
   if (!supabase) return null;
-  const { data, error } = await supabase.rpc("bbd_analytics", { p_days: days });
+  const { data, error } = await supabase.rpc("bbd_analytics", {
+    p_from: from.toISOString(),
+    p_to: to.toISOString(),
+  });
   if (error || !data) return null;
   return data as AnalyticsData;
 }
