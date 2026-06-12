@@ -133,6 +133,7 @@ export function DealRow({
             brand={product.brand}
             name={product.name}
             rank={rank}
+            linked={/^https?:\/\//.test(product.dealUrl)}
             className={`rounded-lg px-6 py-3 text-center font-semibold transition-colors ${
               featured
                 ? "bg-coral text-white hover:bg-coral-dark"

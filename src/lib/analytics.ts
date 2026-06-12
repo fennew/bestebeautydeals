@@ -32,7 +32,7 @@ export type AnalyticsData = {
     concern: Bucket[];
   };
   submitsByDay: { day: string; count: number }[];
-  dealClicks: Bucket[];
+  dealClicks: { label: string; count: number; linked: boolean }[];
 };
 
 export async function getAnalytics(days = 30): Promise<AnalyticsData | null> {

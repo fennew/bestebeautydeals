@@ -58,6 +58,48 @@ function BarList({ title, items }: { title: string; items: Bucket[] }) {
   );
 }
 
+function DealClicksCard({
+  items,
+}: {
+  items: { label: string; count: number; linked: boolean }[];
+}) {
+  const max = Math.max(1, ...items.map((i) => i.count));
+  return (
+    <div className="rounded-2xl border border-line bg-white p-5 shadow-sm">
+      <h3 className="font-display text-lg font-semibold text-charcoal">
+        Deal-kliks per product
+      </h3>
+      {items.length === 0 ? (
+        <p className="mt-3 text-sm text-muted">Nog geen data.</p>
+      ) : (
+        <ul className="mt-3 space-y-2">
+          {items.map((i) => (
+            <li key={i.label}>
+              <div className="flex items-center justify-between gap-2 text-sm">
+                <span className="text-charcoal">
+                  {i.label}
+                  {!i.linked && (
+                    <span className="ml-2 rounded-full bg-coral-soft px-2 py-0.5 text-[11px] font-medium text-coral-deep">
+                      nog geen link
+                    </span>
+                  )}
+                </span>
+                <span className="font-medium text-muted">{i.count}</span>
+              </div>
+              <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-panel-featured">
+                <div
+                  className={`h-full rounded-full ${i.linked ? "bg-coral" : "bg-muted/40"}`}
+                  style={{ width: `${(i.count / max) * 100}%` }}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
   if (!data) {
     return (
@@ -123,7 +165,7 @@ export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
             count: d.count,
           }))}
         />
-        <BarList title="Deal-kliks per product" items={data.dealClicks} />
+        <DealClicksCard items={data.dealClicks} />
       </div>
     </div>
   );
