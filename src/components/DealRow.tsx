@@ -1,6 +1,7 @@
 import type { Product } from "@/data/types";
 import { StarRating } from "./StarRating";
 import { ProductImage } from "./ProductImage";
+import { TrackedDealLink } from "./TrackedDealLink";
 
 function formatPrice(price: number) {
   return `€${price.toFixed(2).replace(".", ",")}`;
@@ -127,10 +128,11 @@ export function DealRow({
               )}
             </div>
           </div>
-          <a
+          <TrackedDealLink
             href={product.dealUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            brand={product.brand}
+            name={product.name}
+            rank={rank}
             className={`rounded-lg px-6 py-3 text-center font-semibold transition-colors ${
               featured
                 ? "bg-coral text-white hover:bg-coral-dark"
@@ -138,7 +140,7 @@ export function DealRow({
             }`}
           >
             Bekijk deal
-          </a>
+          </TrackedDealLink>
         </div>
       </div>
     </article>

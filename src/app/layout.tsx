@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { MetaPixel } from "@/components/MetaPixel";
+import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -51,6 +52,7 @@ export default function RootLayout({
     <html lang="nl" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-charcoal">
         <MetaPixel />
+        <PageViewTracker />
         <AnnouncementBar />
         <Header />
         <main className="flex-1">{children}</main>

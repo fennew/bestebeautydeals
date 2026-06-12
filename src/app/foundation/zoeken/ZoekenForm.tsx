@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { MultiSelect } from "@/components/MultiSelect";
+import { track } from "@/components/analytics/track";
 import type { ComparePageContent } from "@/sanity/lib/fetch";
 
 export function ZoekenForm({ content }: { content: ComparePageContent }) {
@@ -44,6 +45,13 @@ export function ZoekenForm({ content }: { content: ComparePageContent }) {
     e.preventDefault();
     setSubmitting(true);
     if (email && !emailDone) await sendLead();
+
+    track("quiz_submit", {
+      age: values.age ?? "",
+      skin: values.skin ?? "",
+      currentBrand: values.currentBrand ?? "",
+      concerns,
+    });
 
     const params = new URLSearchParams();
     for (const key of ["skin", "age", "currentBrand"]) {

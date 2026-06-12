@@ -1,0 +1,130 @@
+import type { AnalyticsData, Bucket } from "@/lib/analytics";
+
+function pct(n: number, d: number) {
+  if (!d) return "0%";
+  return Math.round((n / d) * 100) + "%";
+}
+
+function StatCard({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  value: string | number;
+  sub?: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-line bg-white p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wider text-muted">
+        {label}
+      </p>
+      <p className="mt-1 font-display text-3xl font-semibold text-charcoal">
+        {value}
+      </p>
+      {sub && <p className="mt-0.5 text-xs text-muted">{sub}</p>}
+    </div>
+  );
+}
+
+function BarList({ title, items }: { title: string; items: Bucket[] }) {
+  const max = Math.max(1, ...items.map((i) => i.count));
+  return (
+    <div className="rounded-2xl border border-line bg-white p-5 shadow-sm">
+      <h3 className="font-display text-lg font-semibold text-charcoal">
+        {title}
+      </h3>
+      {items.length === 0 ? (
+        <p className="mt-3 text-sm text-muted">Nog geen data.</p>
+      ) : (
+        <ul className="mt-3 space-y-2">
+          {items.map((i) => (
+            <li key={i.label}>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-charcoal">{i.label}</span>
+                <span className="font-medium text-muted">{i.count}</span>
+              </div>
+              <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-panel-featured">
+                <div
+                  className="h-full rounded-full bg-coral"
+                  style={{ width: `${(i.count / max) * 100}%` }}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export function AnalyticsDashboard({ data }: { data: AnalyticsData | null }) {
+  if (!data) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16 text-center">
+        <h1 className="font-display text-2xl font-semibold text-charcoal">
+          Analytics
+        </h1>
+        <p className="mt-2 text-muted">
+          Geen data beschikbaar — controleer de Supabase-configuratie.
+        </p>
+        <a
+          href="/api/analytics-logout"
+          className="mt-4 inline-block text-sm text-teal hover:underline"
+        >
+          Uitloggen
+        </a>
+      </div>
+    );
+  }
+
+  const { overview } = data;
+
+  return (
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="font-display text-2xl font-semibold text-charcoal">
+            Analytics
+          </h1>
+          <p className="text-sm text-muted">Laatste {data.days} dagen</p>
+        </div>
+        <a
+          href="/api/analytics-logout"
+          className="text-sm text-teal hover:underline"
+        >
+          Uitloggen
+        </a>
+      </div>
+
+      <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <StatCard label="Pageviews" value={overview.pageviews} />
+        <StatCard label="Quiz-invullingen" value={overview.quizSubmits} />
+        <StatCard label="Deal-kliks" value={overview.dealClicks} />
+        <StatCard
+          label="Deal-CTR"
+          value={pct(overview.dealClicks, overview.quizSubmits)}
+          sub="kliks per quiz-invulling"
+        />
+      </div>
+
+      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        <BarList title="Leeftijd" items={data.distributions.age} />
+        <BarList title="Huidtype" items={data.distributions.skin} />
+        <BarList title="Huidig foundationmerk" items={data.distributions.brand} />
+        <BarList title="Wat moet het dekken" items={data.distributions.concern} />
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <BarList
+          title="Quiz-invullingen per dag"
+          items={data.submitsByDay.map((d) => ({
+            label: d.day,
+            count: d.count,
+          }))}
+        />
+        <BarList title="Deal-kliks per product" items={data.dealClicks} />
+      </div>
+    </div>
+  );
+}
